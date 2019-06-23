@@ -1,26 +1,26 @@
 package Logic;
 
 
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Tests {
     public static void main(String[] args){
-        MyPlayer p=new MyPlayer();
-        p.play("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3",350000);
-        System.out.println("123");
+        Music m=new Music("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3","sample");
+        InputStream in = new ByteArrayInputStream(m.ArtWork);
         try {
-            TimeUnit.SECONDS.sleep(6);
-        } catch (InterruptedException e) {
+            BufferedImage bImage = ImageIO.read(in);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos );
+            byte [] data = bos.toByteArray();
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            BufferedImage bImage2 = ImageIO.read(bis);
+            ImageIO.write(bImage2, "jpg", new File("output.jpg") );
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("456");
-        p.pause();
-        Scanner sc=new Scanner(System.in);
-        int a;
-        a=sc.nextInt();
-        if(a==1){
-            p.resume();
-        }
+
+
     }
 }

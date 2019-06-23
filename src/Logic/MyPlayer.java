@@ -24,6 +24,16 @@ public class MyPlayer {
             player.close();
         }
     };
+
+    public MyPlayer() {
+        FIS=null;
+        BIS=null;
+        player=null;
+        PauseLocation=0;
+        TotalSongLenght=0;
+        Path=null;
+    }
+
     public long getPauseLocation() {
         return PauseLocation;
     }
