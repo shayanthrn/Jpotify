@@ -32,27 +32,6 @@ public class MyPlayer {
         return TotalSongLenght;
     }
 
-    public void play(String Path){
-        try {
-            this.Path=Path;
-            try {
-                FIS=new FileInputStream(Path);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                TotalSongLenght=FIS.available();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ;
-            BIS=new BufferedInputStream(FIS);
-            player = new Player(BIS);
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        }
-        playThread.start();
-    }
     public void pause(){
         if(player!=null) {
             try {
@@ -82,8 +61,32 @@ public class MyPlayer {
         }
         playThread.start();
     }
-    void Stop(){
+    public void Stop(){
         player.close();
     }
-
+    public void play(String Path,long Start){
+        try {
+            this.Path=Path;
+            try {
+                FIS=new FileInputStream(Path);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                TotalSongLenght=FIS.available();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                FIS.skip(Start);                // bug dare
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            BIS=new BufferedInputStream(FIS);
+            player = new Player(BIS);
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        }
+        playThread.start();
+    }
 }
