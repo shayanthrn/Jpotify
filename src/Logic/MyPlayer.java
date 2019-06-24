@@ -3,10 +3,7 @@ package Logic;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Port;
+import javax.sound.sampled.*;
 import java.io.*;
 
 public class MyPlayer {
@@ -16,11 +13,12 @@ public class MyPlayer {
     private long TotalSongLenght;
     private Player player;
     private String Path;
+    private int flag;
     private Thread playThread=new Thread(){
         @Override
         public void run() {
             try {
-                while (!interrupted())
+                while (flag==1)
                     player.play();
             } catch (JavaLayerException e) {
                 e.printStackTrace();
@@ -36,7 +34,7 @@ public class MyPlayer {
         PauseLocation=0;
         TotalSongLenght=0;
         Path=null;
-
+        flag=1;
     }
 
     public long getPauseLocation() {
@@ -51,6 +49,7 @@ public class MyPlayer {
         if(player!=null) {
             try {
                 PauseLocation = FIS.available();
+                flag=0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -74,7 +73,19 @@ public class MyPlayer {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        playThread.start();
+        flag=1;
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    while (flag==1)
+                        player.play();
+                } catch (JavaLayerException e) {
+                    e.printStackTrace();
+                }
+                player.close();
+            }
+        }.start();
     }
     public void Stop(){
         player.close();
@@ -105,10 +116,9 @@ public class MyPlayer {
         playThread.start();
     }
     public void changeVoloum(Float voloum){
-        Port.Info source = Port.Info.SPEAKER;
-        if(AudioSystem.isLineSupported((source))){
+        if(AudioSystem.isLineSupported((Port.Info.SPEAKER))){
             try{
-                Port outline = (Port) AudioSystem.getLine(source);
+                Port outline = (Port) AudioSystem.getLine(Port.Info.SPEAKER);
                 outline.open();
                 FloatControl voloumControl = (FloatControl) outline.getControl(FloatControl.Type.VOLUME);
                 voloumControl.setValue(voloum);                         // shayad niaz bashe kamtar az ye mqdari 0 she

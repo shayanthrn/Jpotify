@@ -16,9 +16,16 @@ public class Tests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        m.changeVoloum(0.01f);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        m.changeVoloum(1.0f);
         m.pause();
         try {
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(4);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
