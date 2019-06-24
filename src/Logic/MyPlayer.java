@@ -1,16 +1,21 @@
 package Logic;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import javax.sound.sampled.*;
 import java.io.*;
+import java.util.Map;
 
 public class MyPlayer {
     private FileInputStream FIS;
     private BufferedInputStream BIS;
     private long PauseLocation;
     private long TotalSongLenght;
+    private long currentTime;
     private Player player;
     private String Path;
     private int flag;
@@ -27,6 +32,39 @@ public class MyPlayer {
         }
     };
 
+    public long getTotalTime() {
+        Mp3File mp3File= null;
+        try {
+            mp3File = new Mp3File(Path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        }
+        return mp3File.getLengthInSeconds();
+    }
+    public long getCurrentTime(){
+        Mp3File mp3File= null;
+        try {
+            mp3File = new Mp3File(Path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        }
+        long temp=0;
+        try {
+            temp = FIS.available();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (long)(((TotalSongLenght-temp-mp3File.getStartOffset())/(float) (mp3File.getEndOffset()-mp3File.getStartOffset()))*mp3File.getLengthInSeconds());
+    }
+
     public MyPlayer() {
         FIS=null;
         BIS=null;
@@ -34,7 +72,7 @@ public class MyPlayer {
         PauseLocation=0;
         TotalSongLenght=0;
         Path=null;
-        flag=1;
+        flag=0;
     }
 
     public long getPauseLocation() {
@@ -88,9 +126,21 @@ public class MyPlayer {
         }.start();
     }
     public void Stop(){
+        flag=0;
         player.close();
     }
-    public void play(String Path,long Start){
+    public void play(String Path,float Start){
+        long songlenghtbyte;
+        Mp3File mp3File=null;
+        try {
+            mp3File=new Mp3File(Path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        }
         try {
             this.Path=Path;
             try {
@@ -103,16 +153,19 @@ public class MyPlayer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            songlenghtbyte=mp3File.getEndOffset()-mp3File.getStartOffset();
             try {
-                FIS.skip(Start);                // bug dare
+                FIS.skip((long) (Start*songlenghtbyte)+mp3File.getStartOffset());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ;
             BIS=new BufferedInputStream(FIS);
             player = new Player(BIS);
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
+        flag=1;
         playThread.start();
     }
     public void changeVoloum(Float voloum){
