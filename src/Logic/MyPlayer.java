@@ -19,11 +19,11 @@ public class MyPlayer {
     private Player player;
     private String Path;
     private int flag;
-    private Thread playThread=new Thread(){
+    private Thread playThread = new Thread() {
         @Override
         public void run() {
             try {
-                while (flag==1)
+                while (flag == 1)
                     player.play();
             } catch (JavaLayerException e) {
                 e.printStackTrace();
@@ -33,7 +33,7 @@ public class MyPlayer {
     };
 
     public long getTotalTime() {
-        Mp3File mp3File= null;
+        Mp3File mp3File = null;
         try {
             mp3File = new Mp3File(Path);
         } catch (IOException e) {
@@ -45,8 +45,9 @@ public class MyPlayer {
         }
         return mp3File.getLengthInSeconds();
     }
-    public long getCurrentTime(){
-        Mp3File mp3File= null;
+
+    public long getCurrentTime() {
+        Mp3File mp3File = null;
         try {
             mp3File = new Mp3File(Path);
         } catch (IOException e) {
@@ -56,23 +57,23 @@ public class MyPlayer {
         } catch (InvalidDataException e) {
             e.printStackTrace();
         }
-        long temp=0;
+        long temp = 0;
         try {
             temp = FIS.available();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return (long)(((TotalSongLenght-temp-mp3File.getStartOffset())/(float) (mp3File.getEndOffset()-mp3File.getStartOffset()))*mp3File.getLengthInSeconds());
+        return (long) (((TotalSongLenght - temp - mp3File.getStartOffset()) / (float) (mp3File.getEndOffset() - mp3File.getStartOffset())) * mp3File.getLengthInSeconds());
     }
 
     public MyPlayer() {
-        FIS=null;
-        BIS=null;
-        player=null;
-        PauseLocation=0;
-        TotalSongLenght=0;
-        Path=null;
-        flag=0;
+        FIS = null;
+        BIS = null;
+        player = null;
+        PauseLocation = 0;
+        TotalSongLenght = 0;
+        Path = null;
+        flag = 0;
     }
 
     public long getPauseLocation() {
@@ -83,40 +84,41 @@ public class MyPlayer {
         return TotalSongLenght;
     }
 
-    public void pause(){
-        if(player!=null) {
+    public void pause() {
+        if (player != null) {
             try {
                 PauseLocation = FIS.available();
-                flag=0;
+                flag = 0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
             player.close();
         }
     }
-    public void resume(){
+
+    public void resume() {
         try {
-            FIS=new FileInputStream(Path);
+            FIS = new FileInputStream(Path);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        BIS=new BufferedInputStream(FIS);
+        BIS = new BufferedInputStream(FIS);
         try {
-            FIS.skip(TotalSongLenght-PauseLocation);
+            FIS.skip(TotalSongLenght - PauseLocation);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            player=new Player(FIS);
+            player = new Player(FIS);
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        flag=1;
-        new Thread(){
+        flag = 1;
+        new Thread() {
             @Override
             public void run() {
                 try {
-                    while (flag==1)
+                    while (flag == 1)
                         player.play();
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
@@ -125,15 +127,17 @@ public class MyPlayer {
             }
         }.start();
     }
-    public void Stop(){
-        flag=0;
+
+    public void Stop() {
+        flag = 0;
         player.close();
     }
-    public void play(String Path,float Start){
+
+    public void play(String Path, float Start) {
         long songlenghtbyte;
-        Mp3File mp3File=null;
+        Mp3File mp3File = null;
         try {
-            mp3File=new Mp3File(Path);
+            mp3File = new Mp3File(Path);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnsupportedTagException e) {
@@ -142,41 +146,41 @@ public class MyPlayer {
             e.printStackTrace();
         }
         try {
-            this.Path=Path;
+            this.Path = Path;
             try {
-                FIS=new FileInputStream(Path);
+                FIS = new FileInputStream(Path);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
             try {
-                TotalSongLenght=FIS.available();
+                TotalSongLenght = FIS.available();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            songlenghtbyte=mp3File.getEndOffset()-mp3File.getStartOffset();
+            songlenghtbyte = mp3File.getEndOffset() - mp3File.getStartOffset();
             try {
-                FIS.skip((long) (Start*songlenghtbyte)+mp3File.getStartOffset());
+                FIS.skip((long) (Start * songlenghtbyte) + mp3File.getStartOffset());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             ;
-            BIS=new BufferedInputStream(FIS);
+            BIS = new BufferedInputStream(FIS);
             player = new Player(BIS);
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        flag=1;
+        flag = 1;
         playThread.start();
     }
-    public void changeVoloum(Float voloum){
-        if(AudioSystem.isLineSupported((Port.Info.SPEAKER))){
-            try{
+
+    public void changeVoloum(Float voloum) {
+        if (AudioSystem.isLineSupported((Port.Info.SPEAKER))) {
+            try {
                 Port outline = (Port) AudioSystem.getLine(Port.Info.SPEAKER);
                 outline.open();
                 FloatControl voloumControl = (FloatControl) outline.getControl(FloatControl.Type.VOLUME);
                 voloumControl.setValue(voloum);                         // shayad niaz bashe kamtar az ye mqdari 0 she
-            }
-            catch (LineUnavailableException e){
+            } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
         }

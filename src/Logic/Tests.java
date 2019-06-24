@@ -11,9 +11,18 @@ public class Tests {
     public static void main(String[] args){
         MyPlayer m=new MyPlayer();
         m.play("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3",0.5f);
-        System.out.println(m.getTotalTime());
-        while(true){
-            System.out.println(m.getCurrentTime());
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        m.pause();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        m.resume();
+        System.out.println(m.getCurrentTime());
     }
 }
