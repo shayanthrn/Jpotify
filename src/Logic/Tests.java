@@ -4,23 +4,24 @@ package Logic;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 public class Tests {
     public static void main(String[] args){
-        Music m=new Music("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3","sample");
-        InputStream in = new ByteArrayInputStream(m.ArtWork);
+        MyPlayer m=new MyPlayer();
+        m.play("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3",0);
         try {
-            BufferedImage bImage = ImageIO.read(in);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "jpg", bos );
-            byte [] data = bos.toByteArray();
-            ByteArrayInputStream bis = new ByteArrayInputStream(data);
-            BufferedImage bImage2 = ImageIO.read(bis);
-            ImageIO.write(bImage2, "jpg", new File("output.jpg") );
-        } catch (IOException e) {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
+        m.pause();
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        m.resume();
     }
 }

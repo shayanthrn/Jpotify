@@ -3,6 +3,10 @@ package Logic;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
 import java.io.*;
 
 public class MyPlayer {
@@ -32,6 +36,7 @@ public class MyPlayer {
         PauseLocation=0;
         TotalSongLenght=0;
         Path=null;
+
     }
 
     public long getPauseLocation() {
@@ -98,5 +103,19 @@ public class MyPlayer {
             e.printStackTrace();
         }
         playThread.start();
+    }
+    public void changeVoloum(Float voloum){
+        Port.Info source = Port.Info.SPEAKER;
+        if(AudioSystem.isLineSupported((source))){
+            try{
+                Port outline = (Port) AudioSystem.getLine(source);
+                outline.open();
+                FloatControl voloumControl = (FloatControl) outline.getControl(FloatControl.Type.VOLUME);
+                voloumControl.setValue(voloum);                         // shayad niaz bashe kamtar az ye mqdari 0 she
+            }
+            catch (LineUnavailableException e){
+                e.printStackTrace();
+            }
+        }
     }
 }
