@@ -1,12 +1,13 @@
 package Logic;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class PlayList {
+public class PlayList implements Serializable {
     LinkedList<Music> Songs;
     String name;
     boolean deleteable;
-    boolean changename;
+    boolean changename;   /// axe ezafe kon
 
     public PlayList(String name, boolean deleteable, boolean changename) {
         Songs = new LinkedList<Music>();

@@ -3,8 +3,9 @@ package Logic;
 import com.mpatric.mp3agic.*;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Music {
+public class Music implements Serializable {
     private String Album;
     private String Name;
     private String Artist;
