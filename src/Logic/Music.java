@@ -11,7 +11,7 @@ public class Music implements Serializable {
     private String Artist;
     private String Path;
     private Mp3File mp3file;
-    private byte[] ArtWork;              //memetype shayad bayad ezafe she va inke byte image she rahat tare check kon
+    private byte[] ArtWork;
 
     public Music(String path, String name) {
         Path = path;

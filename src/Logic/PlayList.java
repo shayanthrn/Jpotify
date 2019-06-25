@@ -1,5 +1,10 @@
 package Logic;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -7,13 +12,27 @@ public class PlayList implements Serializable {
     LinkedList<Music> Songs;
     String name;
     boolean deleteable;
-    boolean changename;   /// axe ezafe kon
+    boolean changename;
+    private byte[] playphoto;
 
-    public PlayList(String name, boolean deleteable, boolean changename) {
+    public PlayList(String name, boolean deleteable, boolean changename,String Pathphoto) {
         Songs = new LinkedList<Music>();
         this.name = name;
         this.deleteable = deleteable;
         this.changename = changename;
+        BufferedImage bimage=null;
+        try {
+            bimage= ImageIO.read(new File(Pathphoto));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ByteArrayOutputStream bOS=new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bimage,"jpg",bOS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        playphoto=bOS.toByteArray();
     }
 
     public String getName() {
