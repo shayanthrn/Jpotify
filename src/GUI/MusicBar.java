@@ -210,7 +210,7 @@ public class MusicBar extends JPanel {
 
     static class MusicBar_picture extends JPanel {
 
-        private String name = "100_best_Music";
+        private String name = (Main.MainController.getNowplaying()!=null)?Main.MainController.getNowplaying().getName():" ";
 
         public MusicBar_picture() {
             super();

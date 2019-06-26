@@ -71,7 +71,7 @@ public class IOClass {
             try {
                 objectInputStream = new ObjectInputStream((new FileInputStream("./saved/Songs.bin")));
             } catch (IOException e) {
-                e.printStackTrace();
+                return null;
             }
             LinkedList<Music> songs=new LinkedList<Music>();
             while(true){
@@ -99,7 +99,7 @@ public class IOClass {
             try {
                 objectInputStream = new ObjectInputStream(new FileInputStream("./saved/Albums.bin"));
             } catch (IOException e) {
-                e.printStackTrace();
+                return null;
             }
             LinkedList<Albums> albums=new LinkedList<Albums>();
             while (true){
@@ -126,7 +126,7 @@ public class IOClass {
             try {
                 objectInputStream = new ObjectInputStream(new FileInputStream("./saved/Playlists.bin"));
             } catch (IOException e) {
-                e.printStackTrace();
+                return null;
             }
             LinkedList<PlayList> playLists= new LinkedList<PlayList>();
             while (true){
