@@ -2,10 +2,15 @@ package GUI;
 
 import Logic.MyPlayer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 
 
 public class MusicBar extends JPanel {
@@ -87,9 +92,6 @@ public class MusicBar extends JPanel {
     }
 
 
-
-
-
     class MusicBar_Button extends JPanel implements ActionListener {
 
         int i = 0;
@@ -121,8 +123,8 @@ public class MusicBar extends JPanel {
             pus = new ImageIcon("./assets/image/pause.png");
             flike = new ImageIcon("./assets/image/fullHeart.png");
             elik = new ImageIcon("./assets/image/emptyHeart.png");
-            rflike = Utils.resize("./assets/image/fullHeart.png",25,25);
-            relike = Utils.resize("./assets/image/emptyHeart.png",25,25);
+            rflike = Utils.resize("./assets/image/fullHeart.png", 25, 25);
+            relike = Utils.resize("./assets/image/emptyHeart.png", 25, 25);
 
             play = new JButton(new ImageIcon("./assets/image/play.png"));
             next = new JButton(new ImageIcon("./assets/image/next.png"));
@@ -139,34 +141,34 @@ public class MusicBar extends JPanel {
 
             next.setBorder(null);
             next.setContentAreaFilled(false);
-            next.setPressedIcon(Utils.resize("./assets/image/next.png",20,20));
-            next.setRolloverIcon(Utils.resize("./assets/image/next.png",25,25));
+            next.setPressedIcon(Utils.resize("./assets/image/next.png", 20, 20));
+            next.setRolloverIcon(Utils.resize("./assets/image/next.png", 25, 25));
             next.addActionListener(this);
 
 
             previous.setBorder(null);
             previous.setContentAreaFilled(false);
-            previous.setPressedIcon(Utils.resize("./assets/image/previous.png",20,20));
-            previous.setRolloverIcon(Utils.resize("./assets/image/previous.png",25,25));
+            previous.setPressedIcon(Utils.resize("./assets/image/previous.png", 20, 20));
+            previous.setRolloverIcon(Utils.resize("./assets/image/previous.png", 25, 25));
             previous.addActionListener(this);
 
             shuffle.setBorder(null);
             shuffle.setContentAreaFilled(false);
-            shuffle.setPressedIcon(Utils.resize("./assets/image/shuffle.png",20,20));
-            shuffle.setRolloverIcon(Utils.resize("./assets/image/shuffle.png",25,25));
+            shuffle.setPressedIcon(Utils.resize("./assets/image/shuffle.png", 20, 20));
+            shuffle.setRolloverIcon(Utils.resize("./assets/image/shuffle.png", 25, 25));
             shuffle.addActionListener(this);
 
 
             repeat.setBorder(null);
             repeat.setContentAreaFilled(false);
-            repeat.setPressedIcon(Utils.resize("./assets/image/repeat.png",20,20));
-            repeat.setRolloverIcon(Utils.resize("./assets/image/repeat.png",25,25));
+            repeat.setPressedIcon(Utils.resize("./assets/image/repeat.png", 20, 20));
+            repeat.setRolloverIcon(Utils.resize("./assets/image/repeat.png", 25, 25));
             repeat.addActionListener(this);
 
             like.setBorder(null);
             like.setContentAreaFilled(false);
             like.setPressedIcon(new ImageIcon("./assets/image/fullHeart.png"));
-            like.setRolloverIcon(Utils.resize("./assets/image/emptyHeart.png",25,25));
+            like.setRolloverIcon(Utils.resize("./assets/image/emptyHeart.png", 25, 25));
             like.addActionListener(this);
 
             this.add(shuffle);
@@ -179,7 +181,7 @@ public class MusicBar extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == play ) {
+            if (e.getSource() == play) {
                 if (play.getIcon() != pus) {
                     play.setIcon(pus);
                     play.setRolloverIcon(pus);
@@ -190,11 +192,11 @@ public class MusicBar extends JPanel {
                     Main.mainPlayer.pause();
                 }
             }
-            if(e.getSource() == like){
-                if(like.getIcon() != flike){
+            if (e.getSource() == like) {
+                if (like.getIcon() != flike) {
                     like.setIcon(flike);
                     like.setRolloverIcon(rflike);
-                }else {
+                } else {
                     like.setIcon(elik);
                     like.setRolloverIcon(relike);
                     i++;
@@ -204,20 +206,31 @@ public class MusicBar extends JPanel {
     }
 
 
-
-
-
-
     static class MusicBar_picture extends JPanel {
 
-        private String name = (Main.MainController.getNowplaying()!=null)?Main.MainController.getNowplaying().getName():" ";
+        private String name = (Main.MainController.getNowplaying() != null) ? Main.MainController.getNowplaying().getName() : " ";
 
         public MusicBar_picture() {
             super();
             this.setLayout(new GridLayout(1, 2, 10, 0));
             this.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-
-            JLabel label_pic = new JLabel(Utils.resize("./assets/image/ali.jpg", 80, 80));
+            ByteArrayInputStream bis = null;
+            if (Main.MainController.getNowplaying() != null)
+                bis = new ByteArrayInputStream(Main.MainController.getNowplaying().getArtWork());
+            BufferedImage bimage = null;
+            if (Main.MainController.getNowplaying() != null) {
+                try {
+                    bimage = ImageIO.read(bis);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    ImageIO.write(bimage, "jpg", new File("./assets/image/NowPlaying.jpg"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            JLabel label_pic = new JLabel(Utils.resize((Main.MainController.getNowplaying() != null) ? "./assets/image/NowPlaying.jpg" : "./assets/image/Default.jpg", 30, 30));
             JLabel label_name = new JLabel(name);
 
             label_name.setForeground(Color.WHITE);
@@ -233,9 +246,9 @@ public class MusicBar extends JPanel {
     }
 
 
-    class MusicBar_Button2 extends JPanel implements ActionListener{
+    class MusicBar_Button2 extends JPanel implements ActionListener {
 
-        int j=0;
+        int j = 0;
         JButton unmute;
         ImageIcon mute;
         ImageIcon unmut;
@@ -250,8 +263,8 @@ public class MusicBar extends JPanel {
             unmute = new JButton(Utils.resize("./assets/image/unmute.jpg", 18, 20));
             mute = Utils.resize("./assets/image/mute.jpg", 20, 20);
             unmut = Utils.resize("./assets/image/unmute.jpg", 20, 20);
-            rmute = Utils.resize("./assets/image/mute.jpg",25,25);
-            runmut = Utils.resize("./assets/image/unmute.jpg",25,25);
+            rmute = Utils.resize("./assets/image/mute.jpg", 25, 25);
+            runmut = Utils.resize("./assets/image/unmute.jpg", 25, 25);
 //            queue = new JButton(Utils.resize("./assets/image/queue.jpg", 20, 20));
 //            devices_Available = new JButton(Utils.resize("./assets/image/devices_Available.jpg", 18, 20));
 
@@ -270,8 +283,8 @@ public class MusicBar extends JPanel {
 //            devices_Available.addActionListener(this);
 
             unmute.setContentAreaFilled(false);
-            unmute.setPressedIcon(Utils.resize("./assets/image/unmute.jpg",20,20));
-            unmute.setRolloverIcon(Utils.resize("./assets/image/unmute.jpg",25,25));
+            unmute.setPressedIcon(Utils.resize("./assets/image/unmute.jpg", 20, 20));
+            unmute.setRolloverIcon(Utils.resize("./assets/image/unmute.jpg", 25, 25));
             unmute.addActionListener(this);
 
 
@@ -296,7 +309,7 @@ public class MusicBar extends JPanel {
 //            if(e.getSource() == devices_Available){
 //
 //            }
-            if(e.getSource() == unmute){
+            if (e.getSource() == unmute) {
                 if (unmute.getIcon() != mute) {
                     unmute.setIcon(mute);
                     unmute.setRolloverIcon(rmute);
@@ -310,11 +323,6 @@ public class MusicBar extends JPanel {
 
         }
     }
-
-
-
-
-
 
 
     class MusicBar_MusicTime extends JPanel {
