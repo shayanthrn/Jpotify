@@ -57,8 +57,8 @@ public class Musics extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == M1.getB()){/////test
-            Main.mainPlayer.play(Main.MainController.getSongs().get(0).getPath(),0f);
             Main.MainController.setNowplaying(Main.MainController.getSongs().get(0));
+            Main.mainPlayer.play(Main.MainController.getSongs().get(0).getPath(),0f);
             JButton play=Main.getF().getMBar().getMb1().getPlay();
             ImageIcon pus;
             Main.getF().getMBar().getMb1().setFlagPlay(1);

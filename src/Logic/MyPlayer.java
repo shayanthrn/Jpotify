@@ -159,6 +159,7 @@ public class MyPlayer {
         }
         try {
             Main.getF().getMBar().getMp1().setLabel_pic(ImageIO.read(new ByteArrayInputStream(new Music(Path).getArtWork())));
+            Main.getF().getMBar().getMp1().setLabel_name(Main.MainController.getNowplaying().getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
