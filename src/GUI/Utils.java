@@ -17,7 +17,14 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = imgage.getScaledInstance(w, h + 0, Image.SCALE_SMOOTH);
+        Image dimg = imgage.getScaledInstance(w, h , Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+
+        return imageIcon;
+    }
+    public static ImageIcon resize(BufferedImage imgage, int w, int h) {
+
+        Image dimg = imgage.getScaledInstance(w, h , Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
 
         return imageIcon;

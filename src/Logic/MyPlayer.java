@@ -19,18 +19,6 @@ public class MyPlayer {
     private Player player;
     private String Path;
     private int flag;
-    private Thread playThread = new Thread() {
-        @Override
-        public void run() {
-            try {
-                while (flag == 1)
-                    player.play();
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
-            }
-            player.close();
-        }
-    };
 
     public long getTotalTime() {
         Mp3File mp3File = null;
@@ -97,6 +85,10 @@ public class MyPlayer {
     }
 
     public void resume() {
+        if(flag==1){
+            if(player!=null)
+                player.close();
+        }
         try {
             FIS = new FileInputStream(Path);
         } catch (FileNotFoundException e) {
@@ -134,6 +126,10 @@ public class MyPlayer {
     }
 
     public void play(String Path, float Start) {
+        if(flag==1){
+            if(player!=null)
+                 player.close();
+        }
         long songlenghtbyte;
         Mp3File mp3File = null;
         try {
@@ -169,7 +165,18 @@ public class MyPlayer {
             e.printStackTrace();
         }
         flag = 1;
-        playThread.start();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (flag == 1)
+                        player.play();
+                } catch (JavaLayerException e) {
+                    e.printStackTrace();
+                }
+                player.close();
+            }
+        }.start();
     }
 
     public void changeVoloum(Float voloum) {

@@ -201,12 +201,14 @@ public class MusicBar extends JPanel {
                     play.setIcon(pus);
                     play.setRolloverIcon(pus);
                     flagPlay=1;
-                    Main.mainPlayer.resume();
+                    if(Main.MainController.getNowplaying()!= null)
+                         Main.mainPlayer.resume();
                 } else {
                     play.setIcon(pla);
                     play.setRolloverIcon(pla1);
                     flagPlay=0;
-                    Main.mainPlayer.pause();
+                    if(Main.MainController.getNowplaying()!= null)
+                        Main.mainPlayer.pause();
                 }
             }
             if (e.getSource() == like) {
