@@ -28,10 +28,10 @@ public class MusicBar extends JPanel {
         return Mt1;
     }
 
-    MusicBar_Button Mb1 = new MusicBar_Button();
-    MusicBar_picture Mp1 = new MusicBar_picture();
-    MusicBar_Button2 Mb2 = new MusicBar_Button2();
-    MusicBar_MusicTime Mt1 = new MusicBar_MusicTime();
+     MusicBar_Button Mb1 = new MusicBar_Button();
+     MusicBar_picture Mp1 = new MusicBar_picture();
+     MusicBar_Button2 Mb2 = new MusicBar_Button2();
+     MusicBar_MusicTime Mt1 = new MusicBar_MusicTime();
 
     public MusicBar() {
 
@@ -238,10 +238,10 @@ public class MusicBar extends JPanel {
     }
 
 
-    static class MusicBar_picture extends JPanel {
-
+     public class MusicBar_picture extends JPanel {
         private String name = (Main.MainController.getNowplaying() != null) ? Main.MainController.getNowplaying().getName() : " ";
-
+        JLabel label_pic;
+        JLabel label_name;
         public MusicBar_picture() {
             super();
             this.setLayout(new GridLayout(1, 2, 10, 0));
@@ -262,8 +262,8 @@ public class MusicBar extends JPanel {
                     e.printStackTrace();
                 }
             }
-            JLabel label_pic = new JLabel(Utils.resize((Main.MainController.getNowplaying() != null) ? "./assets/image/NowPlaying.jpg" : "./assets/image/Default.jpg", 30, 30));
-            JLabel label_name = new JLabel(name);
+            label_pic = new JLabel(Utils.resize( "./assets/image/Default.jpg", 30, 30));
+            label_name = new JLabel(name);
 
             label_name.setForeground(Color.WHITE);
             label_pic.setPreferredSize(new Dimension(100, 60));
@@ -272,9 +272,15 @@ public class MusicBar extends JPanel {
             this.add(label_pic);
             this.add(label_name);
             setBackground(new Color(50, 50, 50));
-
         }
 
+        public void setLabel_pic(BufferedImage bufferedImage) {
+            label_pic.setIcon(new ImageIcon(bufferedImage));
+        }
+
+        public void setLabel_name(String name) {
+            label_name.setText(name);
+        }
     }
 
 
@@ -340,7 +346,7 @@ public class MusicBar extends JPanel {
                 @Override
                 public void stateChanged(ChangeEvent e) {
 
-                    float percent=soundslider.getValue()/(float)soundslider.getMaximum()-soundslider.getMinimum();
+                    float percent=soundslider.getValue()/(float)(soundslider.getMaximum()-soundslider.getMinimum());
                     Main.mainPlayer.changeVoloum(percent);
                 }
             });
@@ -396,13 +402,9 @@ public class MusicBar extends JPanel {
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    if(Main.MainController.getNowplaying()!=null)
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(1200);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                    Main.mainPlayer.play(Main.MainController.getNowplaying().getPath(),0.5f);
+                    if(Main.MainController.getNowplaying()!=null) {
+                        Main.mainPlayer.play(Main.MainController.getNowplaying().getPath(), Timeslider.getValue() / (float) (Timeslider.getMaximum() - Timeslider.getMinimum()));
+                    }
                 }
 
                 @Override
@@ -415,6 +417,7 @@ public class MusicBar extends JPanel {
 
                 }
             });
+
         }
     }
 }

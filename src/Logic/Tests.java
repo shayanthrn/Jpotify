@@ -13,7 +13,7 @@ public class Tests {
     public static void main(String[] args){
         MyPlayer myPlayer=new MyPlayer();
         myPlayer.play("C:\\Users\\Shay\\Desktop\\03 Ramin Djawadi - Light of the Seven.mp3",0);
-        try {
+       try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();

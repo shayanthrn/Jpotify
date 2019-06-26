@@ -1,12 +1,15 @@
 package Logic;
 
+import GUI.Main;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Map;
 
@@ -18,7 +21,6 @@ public class MyPlayer {
     private long currentTime;
     private Player player;
     private String Path;
-    private int flag;
 
     public long getTotalTime() {
         Mp3File mp3File = null;
@@ -61,7 +63,6 @@ public class MyPlayer {
         PauseLocation = 0;
         TotalSongLenght = 0;
         Path = null;
-        flag = 0;
     }
 
     public long getPauseLocation() {
@@ -76,7 +77,6 @@ public class MyPlayer {
         if (player != null) {
             try {
                 PauseLocation = FIS.available();
-                flag = 0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -85,10 +85,8 @@ public class MyPlayer {
     }
 
     public void resume() {
-        if(flag==1){
-            if(player!=null)
-                player.close();
-        }
+        if (player != null)
+            player.close();
         try {
             FIS = new FileInputStream(Path);
         } catch (FileNotFoundException e) {
@@ -105,13 +103,11 @@ public class MyPlayer {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        flag = 1;
         new Thread() {
             @Override
             public void run() {
                 try {
-                    while (flag == 1)
-                        player.play();
+                    player.play();
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
@@ -121,15 +117,12 @@ public class MyPlayer {
     }
 
     public void Stop() {
-        flag = 0;
         player.close();
     }
 
     public void play(String Path, float Start) {
-        if(flag==1){
-            if(player!=null)
-                 player.close();
-        }
+        if (player != null)
+            player.close();
         long songlenghtbyte;
         Mp3File mp3File = null;
         try {
@@ -164,13 +157,17 @@ public class MyPlayer {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        flag = 1;
+        try {
+            Main.getF().getMBar().getMp1().setLabel_pic(ImageIO.read(new ByteArrayInputStream(new Music(Path).getArtWork())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         new Thread() {
             @Override
             public void run() {
                 try {
-                    while (flag == 1)
-                        player.play();
+                    player.play();
+
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }

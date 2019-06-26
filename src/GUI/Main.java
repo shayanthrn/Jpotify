@@ -31,8 +31,8 @@ public class Main {
 
             f = new JspitiFrame();
             f.setUser("ss");
-
         });
+
 
     }
 
