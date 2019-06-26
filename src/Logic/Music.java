@@ -2,6 +2,7 @@ package Logic;
 
 import com.mpatric.mp3agic.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -11,11 +12,31 @@ public class Music implements Serializable {
     private String Artist;
     private String Path;
     private Mp3File mp3file;
+
+    public String getAlbum() {
+        return Album;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public String getArtist() {
+        return Artist;
+    }
+
+    public String getPath() {
+        return Path;
+    }
+
+    public byte[] getArtWork() {
+        return ArtWork;
+    }
+
     private byte[] ArtWork;
 
-    public Music(String path, String name) {
+    public Music(String path) {
         Path = path;
-        Name = name;
         Mp3File mp3file = null;
         try {
             mp3file = new Mp3File(Path);
@@ -35,5 +56,6 @@ public class Music implements Serializable {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
             ArtWork = id3v2Tag.getAlbumImage();
         }
+        Name=new File(Path).getName();
     }
 }

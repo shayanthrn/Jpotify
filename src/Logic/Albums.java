@@ -29,4 +29,11 @@ public class Albums implements Serializable {
     public ArrayList<Music> getSongs() {
         return songs;
     }
+    public byte[] getImage(){
+        if(!songs.isEmpty()){
+            return songs.get(1).getArtWork();
+        }
+        else
+            return null;
+    }
 }

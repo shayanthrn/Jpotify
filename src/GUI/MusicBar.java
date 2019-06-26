@@ -1,5 +1,7 @@
 package GUI;
 
+import Logic.MyPlayer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -181,9 +183,11 @@ public class MusicBar extends JPanel {
                 if (play.getIcon() != pus) {
                     play.setIcon(pus);
                     play.setRolloverIcon(pus);
+                    Main.mainPlayer.resume();
                 } else {
                     play.setIcon(pla);
                     play.setRolloverIcon(pla1);
+                    Main.mainPlayer.pause();
                 }
             }
             if(e.getSource() == like){
@@ -322,7 +326,6 @@ public class MusicBar extends JPanel {
             slider.setMinimumSize(new Dimension(900, 10));
             this.add(slider);
             setBackground(new Color(50, 50, 50));
-
         }
 
     }
