@@ -4,16 +4,29 @@ import Logic.MyPlayer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 
 public class MusicBar extends JPanel {
+    public MusicBar_picture getMp1() {
+        return Mp1;
+    }
+
+    public MusicBar_Button2 getMb2() {
+        return Mb2;
+    }
+
+    public MusicBar_MusicTime getMt1() {
+        return Mt1;
+    }
 
     MusicBar_Button Mb1 = new MusicBar_Button();
     MusicBar_picture Mp1 = new MusicBar_picture();
@@ -273,8 +286,13 @@ public class MusicBar extends JPanel {
         ImageIcon unmut;
         Icon rmute;
         Icon runmut;
+        JSlider soundslider;
 //        JButton queue;
 //        JButton devices_Available;
+
+        public JSlider getSoundslider() {
+            return soundslider;
+        }
 
         public MusicBar_Button2() {
             this.setLayout(new GridLayout(1, 2, 0, 3));
@@ -314,10 +332,18 @@ public class MusicBar extends JPanel {
 
 
             //sound_slider
-            JSlider slider = makeUI();
-            slider.setSize(new Dimension(100, 8));
-            this.add(slider);
+            soundslider = makeUI();
+            soundslider.setSize(new Dimension(100, 8));
+            this.add(soundslider);
+            soundslider.setValue(0);
+            soundslider.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
 
+                    float percent=soundslider.getValue()/(float)soundslider.getMaximum()-soundslider.getMinimum();
+                    Main.mainPlayer.changeVoloum(percent);
+                }
+            });
         }
 
         @Override
@@ -339,24 +365,58 @@ public class MusicBar extends JPanel {
                 }
 
             }
-
         }
     }
 
 
     class MusicBar_MusicTime extends JPanel {
+        public JSlider getTimeslider() {
+            return Timeslider;
+        }
 
+        JSlider Timeslider;
 
         public MusicBar_MusicTime() {
 
-            JSlider slider = makeUI();
-            slider.setMinimumSize(new Dimension(900, 10));
-            this.add(slider);
+            Timeslider = makeUI();
+            Timeslider.setMinimumSize(new Dimension(900, 10));
+            this.add(Timeslider);
             setBackground(new Color(50, 50, 50));
+            Timeslider.setValue(0);
+            Timeslider.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    if(Main.MainController.getNowplaying()!=null)
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1200);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    Main.mainPlayer.play(Main.MainController.getNowplaying().getPath(),0.5f);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
         }
-
     }
-
 }
 
 
