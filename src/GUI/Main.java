@@ -1,12 +1,16 @@
 package GUI;
 
+import Logic.Controller;
+import Logic.MyPlayer;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
 
     private static JspitiFrame f;
-
+    public static Controller MainController= new Controller();
+    public static MyPlayer mainPlayer=new MyPlayer();
 
     public static JspitiFrame getF() {
         return f;

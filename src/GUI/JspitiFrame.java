@@ -28,8 +28,6 @@ public class JspitiFrame extends JFrame {
         this.setLayout(new BorderLayout());
         setBackground(new Color(60, 60, 60));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
         this.add(sp, BorderLayout.WEST);
         this.add(fl, BorderLayout.EAST);
         this.add(Spl, BorderLayout.CENTER);
