@@ -231,30 +231,39 @@ public class MusicBar extends JPanel {
 
     class MusicBar_Button2 extends JPanel implements ActionListener{
 
-        JButton queue;
+        int j=0;
         JButton unmute;
-        JButton devices_Available;
+        ImageIcon mute;
+        ImageIcon unmut;
+        Icon rmute;
+        Icon runmut;
+//        JButton queue;
+//        JButton devices_Available;
 
         public MusicBar_Button2() {
-            this.setLayout(new GridLayout(1, 4, 6, 3));
+            this.setLayout(new GridLayout(1, 2, 0, 3));
 
-            queue = new JButton(Utils.resize("./assets/image/queue.jpg", 20, 20));
             unmute = new JButton(Utils.resize("./assets/image/unmute.jpg", 18, 20));
-            devices_Available = new JButton(Utils.resize("./assets/image/devices_Available.jpg", 18, 20));
+            mute = Utils.resize("./assets/image/mute.jpg", 20, 20);
+            unmut = Utils.resize("./assets/image/unmute.jpg", 20, 20);
+            rmute = Utils.resize("./assets/image/mute.jpg",25,25);
+            runmut = Utils.resize("./assets/image/unmute.jpg",25,25);
+//            queue = new JButton(Utils.resize("./assets/image/queue.jpg", 20, 20));
+//            devices_Available = new JButton(Utils.resize("./assets/image/devices_Available.jpg", 18, 20));
 
             setBackground(new Color(50, 50, 50));
-            this.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 20));
+            this.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 10));
             this.setPreferredSize(new Dimension(150, 60));
 
-            queue.setContentAreaFilled(false);
-            queue.setPressedIcon(Utils.resize("./assets/image/queue.jpg",20,20));
-            queue.setRolloverIcon(Utils.resize("./assets/image/queue.jpg",25,25));
-            queue.addActionListener(this);
-
-            devices_Available.setContentAreaFilled(false);
-            devices_Available.setPressedIcon(Utils.resize("./assets/image/devices_Available.jpg",20,20));
-            devices_Available.setRolloverIcon(Utils.resize("./assets/image/devices_Available.jpg",25,25));
-            devices_Available.addActionListener(this);
+//            queue.setContentAreaFilled(false);
+//            queue.setPressedIcon(Utils.resize("./assets/image/queue.jpg",20,20));
+//            queue.setRolloverIcon(Utils.resize("./assets/image/queue.jpg",25,25));
+//            queue.addActionListener(this);
+//
+//            devices_Available.setContentAreaFilled(false);
+//            devices_Available.setPressedIcon(Utils.resize("./assets/image/devices_Available.jpg",20,20));
+//            devices_Available.setRolloverIcon(Utils.resize("./assets/image/devices_Available.jpg",25,25));
+//            devices_Available.addActionListener(this);
 
             unmute.setContentAreaFilled(false);
             unmute.setPressedIcon(Utils.resize("./assets/image/unmute.jpg",20,20));
@@ -263,8 +272,8 @@ public class MusicBar extends JPanel {
 
 
             //add buttons
-            this.add(queue);
-            this.add(devices_Available);
+//            this.add(queue);
+//            this.add(devices_Available);
             this.add(unmute);
 
 
@@ -277,13 +286,21 @@ public class MusicBar extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == queue){
-
-            }
-            if(e.getSource() == devices_Available){
-
-            }
+//            if(e.getSource() == queue){
+//
+//            }
+//            if(e.getSource() == devices_Available){
+//
+//            }
             if(e.getSource() == unmute){
+                if (unmute.getIcon() != mute) {
+                    unmute.setIcon(mute);
+                    unmute.setRolloverIcon(rmute);
+                    j++;
+                } else {
+                    unmute.setIcon(unmut);
+                    unmute.setRolloverIcon(runmut);
+                }
 
             }
 
