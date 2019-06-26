@@ -163,7 +163,6 @@ public class MyPlayer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ;
             BIS = new BufferedInputStream(FIS);
             player = new Player(BIS);
         } catch (JavaLayerException e) {

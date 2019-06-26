@@ -48,7 +48,7 @@ public class AddPlayList extends JDialog implements ActionListener {
         B.setOpaque(false);
         B.setIconTextGap(5);
         B.setPreferredSize(new Dimension(50, 20));
-        B.setText("Choose PaleyList Picture");
+        B.setText("Choose PlayList Picture");
         B.addActionListener(this);
 
         ok.setBorderPainted(false);

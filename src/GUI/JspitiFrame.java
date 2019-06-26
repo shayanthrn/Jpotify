@@ -1,7 +1,10 @@
 package GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class JspitiFrame extends JFrame {
 
@@ -53,5 +56,7 @@ public class JspitiFrame extends JFrame {
         return Spl;
     }
 
-
+    public MusicBar getMBar() {
+        return MBar;
+    }
 }

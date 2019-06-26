@@ -91,6 +91,9 @@ public class MusicBar extends JPanel {
 
     }
 
+    public MusicBar_Button getMb1() {
+        return Mb1;
+    }
 
     class MusicBar_Button extends JPanel implements ActionListener {
 
@@ -102,6 +105,19 @@ public class MusicBar extends JPanel {
         JButton shuffle;
         JButton repeat;
         JButton like;
+        int flagPlay=0;
+
+        public int getFlagPlay() {
+            return flagPlay;
+        }
+
+        public void setFlagPlay(int flagPlay) {
+            this.flagPlay = flagPlay;
+        }
+
+        public JButton getPlay() {
+            return play;
+        }
 
         ImageIcon pla;
         ImageIcon pla1;
@@ -178,17 +194,18 @@ public class MusicBar extends JPanel {
             this.add(repeat);
             this.add(like);
         }
-
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == play) {
-                if (play.getIcon() != pus) {
+                if (flagPlay==0) {
                     play.setIcon(pus);
                     play.setRolloverIcon(pus);
+                    flagPlay=1;
                     Main.mainPlayer.resume();
                 } else {
                     play.setIcon(pla);
                     play.setRolloverIcon(pla1);
+                    flagPlay=0;
                     Main.mainPlayer.pause();
                 }
             }

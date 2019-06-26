@@ -1,9 +1,12 @@
 package GUI;
+import Logic.Music;
+
 import javax.swing.*;
 import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class SidePanel extends JPanel implements ActionListener{
     private JLabel imagePanel;
@@ -50,7 +53,7 @@ public class SidePanel extends JPanel implements ActionListener{
         add.setOpaque(false);
         add.setIconTextGap(5);
         add.setPreferredSize(new Dimension(200, 50));
-        add.setText("Add Song");
+        add.setText("Add To Library");
         add.addActionListener(this);
 
 
@@ -135,7 +138,12 @@ public class SidePanel extends JPanel implements ActionListener{
             JspitiFrame.getSpl().setVisible(false);
             JspitiFrame.getMusic().setVisible(true);
         }
-
-
+        if(e.getSource() == add){
+            JFileChooser jf=new JFileChooser();
+            int result =jf.showOpenDialog(this);
+            if(result == JFileChooser.APPROVE_OPTION){
+                Main.MainController.addToLibrary(jf.getSelectedFile().getAbsolutePath());
+            }
+        }
     }
 }

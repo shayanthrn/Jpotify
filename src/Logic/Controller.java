@@ -18,9 +18,16 @@ public class Controller {
 
     public Controller() {
         IOClass ioClass=new IOClass();
-        this.songs = ioClass.LoadSongs();
-        this.albums = ioClass.LoadAlbums();
-        this.playLists = ioClass.LoadPlaylists();
+        if(ioClass.LoadAlbums()!=null) {
+            this.songs = ioClass.LoadSongs();
+            this.albums = ioClass.LoadAlbums();
+            this.playLists = ioClass.LoadPlaylists();
+        }
+        else {
+            this.songs=new LinkedList<Music>();
+            this.albums=new LinkedList<Albums>();
+            this.playLists= new LinkedList<PlayList>();
+        }
     }
     public void addToLibrary(String Path){
         Music m=new Music(Path);
@@ -51,8 +58,8 @@ public class Controller {
     public void PlayPlaylist(){
 
     }
-    public void getSongs(){          // sort bayad she
-
+    public LinkedList<Music> getSongs(){
+        return songs;
     }
     public void getAlbums(){      // sort bayad she
 
