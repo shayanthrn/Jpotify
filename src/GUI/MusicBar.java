@@ -263,19 +263,20 @@ public class MusicBar extends JPanel {
                 }
             }
             label_pic = new JLabel(Utils.resize( "./assets/image/Default.jpg", 30, 30));
-            label_name = new JLabel(name);
-
+            String newname="<html><p style=\"width:3px\">"+name+"</p></html>";
+            label_pic.setMaximumSize(new Dimension(30,30));
+            label_name = new JLabel(newname);
             label_name.setForeground(Color.WHITE);
             label_pic.setPreferredSize(new Dimension(100, 60));
-
+            this.setPreferredSize(new Dimension(200,200));
             //add Buttons
             this.add(label_pic);
             this.add(label_name);
             setBackground(new Color(50, 50, 50));
         }
 
-        public void setLabel_pic(BufferedImage bufferedImage) {
-            label_pic.setIcon(new ImageIcon(bufferedImage));
+        public void setLabel_pic(ImageIcon Imagea) {
+            label_pic.setIcon(Imagea);
         }
 
         public void setLabel_name(String name) {

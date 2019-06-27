@@ -1,6 +1,7 @@
 package Logic;
 
 import GUI.Main;
+import GUI.Utils;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -158,7 +159,7 @@ public class MyPlayer {
             e.printStackTrace();
         }
         try {
-            Main.getF().getMBar().getMp1().setLabel_pic(ImageIO.read(new ByteArrayInputStream(new Music(Path).getArtWork())));
+            Main.getF().getMBar().getMp1().setLabel_pic(Utils.resize(ImageIO.read(new ByteArrayInputStream(new Music(Path).getArtWork())),30,30));
             Main.getF().getMBar().getMp1().setLabel_name(Main.MainController.getNowplaying().getName());
         } catch (IOException e) {
             e.printStackTrace();
