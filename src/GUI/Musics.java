@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Musics extends JPanel implements ActionListener {
+public class Musics extends JPanel {
 
     AlbumMusic M1;
     AlbumMusic M2;
@@ -20,64 +20,8 @@ public class Musics extends JPanel implements ActionListener {
         setBackground(new Color(60, 60, 60));
         setVisible(true);
 
-        M1 = new AlbumMusic();
-        M2 = new AlbumMusic();
-        M3 = new AlbumMusic();
-        M4 = new AlbumMusic();
-        M5 = new AlbumMusic();
-
-        M1.setMusic_name("Mosaic");
-        M1.setPath("./assets/image/Mosaic.jpg");
-        M2.setMusic_name("Havana");
-        M2.setPath("./assets/image/havana.jpg");
-        M3.setMusic_name("Reputation");
-        M3.setPath("./assets/image/Reputation.png");
-        M4.setMusic_name("Jane Javani");
-        M4.setPath("./assets/image/jane_javani.png");
-        M5.setMusic_name("Kenya_East");
-        M5.setPath("./assets/image/kenya_east.png");
 
 
-        M1.getB().addActionListener(this);
-        M2.getB().addActionListener(this);
-        M3.getB().addActionListener(this);
-        M4.getB().addActionListener(this);
-        M5.getB().addActionListener(this);
-
-
-        this.add(M1);
-        this.add(M2);
-        this.add(M3);
-        this.add(M4);
-        this.add(M5);
-
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == M1.getB()){/////test
-            Main.MainController.setNowplaying(Main.MainController.getSongs().get(0));
-            Main.mainPlayer.play(Main.MainController.getSongs().get(0).getPath(),0f);
-            JButton play=Main.getF().getMBar().getMb1().getPlay();
-            ImageIcon pus;
-            Main.getF().getMBar().getMb1().setFlagPlay(1);
-            pus = new ImageIcon("./assets/image/pause.png");
-            play.setIcon(pus);
-            play.setRolloverIcon(pus);
-        }//test
-        if(e.getSource() == M2.getB()){
-
-        }
-        if(e.getSource() == M3.getB()){
-
-        }
-        if(e.getSource() == M4.getB()){
-
-        }
-        if(e.getSource() == M5.getB()){
-
-        }
     }
 }
 
