@@ -112,7 +112,6 @@ public class MusicBar extends JPanel {
     class MusicBar_Button extends JPanel implements ActionListener {
 
         int i = 0;
-
         JButton play;
         JButton next;
         JButton previous;

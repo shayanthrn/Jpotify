@@ -52,8 +52,7 @@ public class Controller {
             this.playLists= new LinkedList<PlayList>();
         }
     }
-    public void addToLibrary(String Path){
-        Music m=new Music(Path);
+    public void addToLibrary(Music m){
         songs.add(m);
         String albumname=m.getAlbum();
         int flag=0;

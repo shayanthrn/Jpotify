@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class SidePanel extends JPanel implements ActionListener{
+public class SidePanel extends JPanel implements ActionListener {
     private JLabel imagePanel;
     private JButton home;
     private JButton songs;
@@ -20,7 +20,7 @@ public class SidePanel extends JPanel implements ActionListener{
 
     public SidePanel() {
         setPreferredSize(new Dimension(200, 600));
-        setLayout(new GridLayout(10,1));
+        setLayout(new GridLayout(10, 1));
         setBackground(new Color(50, 50, 50));
         home = new JButton(new ImageIcon("image/Capture_32x32.png"));
         home.setBorder(null);
@@ -34,11 +34,19 @@ public class SidePanel extends JPanel implements ActionListener{
         home.setIconTextGap(5);
         home.setPreferredSize(new Dimension(200, 50));
         home.setText("Home");
+        home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.f.getSpl().removeAll();
+                Main.f.makemusic();
+                Main.f.getSpl().updateUI();
+            }
+        });
 
 
         JSeparator sep1 = new JSeparator();
         sep1.setOrientation(SwingConstants.VERTICAL);
-        sep1.setMaximumSize(new Dimension(200,2));
+        sep1.setMaximumSize(new Dimension(200, 2));
         sep1.setVisible(false);
 
 
@@ -83,7 +91,14 @@ public class SidePanel extends JPanel implements ActionListener{
         songs.setIconTextGap(5);
         songs.setPreferredSize(new Dimension(200, 50));
         songs.setText("Songs");
-        songs.addActionListener(this);
+        songs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.f.getMusic().removeAll();
+                Main.f.makeSpl();
+                Main.f.getMusic().updateUI();
+            }
+        });
 
         albums = new JButton(new ImageIcon("com/company/queue.png"));
         albums.setBorder(null);
@@ -99,11 +114,11 @@ public class SidePanel extends JPanel implements ActionListener{
         albums.setText("Albums");
 
         playlist_label = new JLabel(" Playlists");
-        playlist_label.setFont(new Font("Lato" , Font.PLAIN , 15));
+        playlist_label.setFont(new Font("Lato", Font.PLAIN, 15));
         playlist_label.setForeground(Color.white);
 
         library_label = new JLabel(" Your Library");
-        library_label.setFont(new Font("Lato" , Font.PLAIN , 15));
+        library_label.setFont(new Font("Lato", Font.PLAIN, 15));
         library_label.setForeground(Color.white);
 
 //        list of playlist
@@ -127,22 +142,20 @@ public class SidePanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == addPlayList) {
-            AddPlayList addPlayList = new AddPlayList();
-        }
-        if(e.getSource() == songs){
-            JspitiFrame.getSpl().setVisible(true);
-            JspitiFrame.getMusic().setVisible(false);
-        }
-        if(e.getSource() == home){
-            JspitiFrame.getSpl().setVisible(false);
-            JspitiFrame.getMusic().setVisible(true);
-        }
-        if(e.getSource() == add){
-            JFileChooser jf=new JFileChooser();
-            int result =jf.showOpenDialog(this);
-            if(result == JFileChooser.APPROVE_OPTION){
-                Main.MainController.addToLibrary(jf.getSelectedFile().getAbsolutePath());
+        if (e.getSource() == add) {
+            JFileChooser jf = new JFileChooser();
+            int result = jf.showOpenDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                Music music = new Music(jf.getSelectedFile().getAbsolutePath());
+                Main.MainController.addToLibrary(music);
+
+//                AlbumMusic albumMusic = new AlbumMusic(music);
+//                JspitiFrame.getSpl().add1(albumMusic);
+//                JspitiFrame.getSpl().revalidate();
+//                JspitiFrame.getSpl().update();
+//                JspitiFrame.getMusic().update();
+//                JspitiFrame.getMusic().update();
+//            }
             }
         }
     }

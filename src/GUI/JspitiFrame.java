@@ -1,10 +1,14 @@
 package GUI;
 
+import Logic.Music;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class JspitiFrame extends JFrame {
 
@@ -17,8 +21,13 @@ public class JspitiFrame extends JFrame {
     SidePanel sp = new SidePanel();
     FriendList fl = new FriendList();
     SearchBar Search = new SearchBar();
-    static Musics Music = new Musics();
-    static SongPlayList Spl = new SongPlayList();
+    static Musics Spl ;
+    static Musics Music;
+    static Musics Album;
+    static ArrayList<AlbumMusic> musics;
+    static ArrayList<AlbumMusic> favorites;
+    static ArrayList<AlbumMusic> Albums;
+
 
 
     public JspitiFrame() {
@@ -32,14 +41,18 @@ public class JspitiFrame extends JFrame {
         setBackground(new Color(60, 60, 60));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(sp, BorderLayout.WEST);
-        this.add(fl, BorderLayout.EAST);
-        this.add(Spl, BorderLayout.CENTER);
         this.add(MBar, BorderLayout.SOUTH);
-        this.add(Music, BorderLayout.CENTER);
         this.add(Search, BorderLayout.PAGE_START);
+        this.add(new JScrollPane(fl), BorderLayout.EAST);
+        this.add(new JScrollPane(Spl), BorderLayout.CENTER);
+        this.add(new JScrollPane(Music), BorderLayout.CENTER);
+        makemusic();
+
+
+//        Music.update();
 
 //        Music.setVisible(false);
-        Spl.setVisible(false);
+//        Spl.setVisible(false);
         this.setVisible(true);
     }
 
@@ -52,9 +65,26 @@ public class JspitiFrame extends JFrame {
         return Music;
     }
 
-    public static SongPlayList getSpl() {
+    public static Musics getSpl() {
         return Spl;
     }
+    public void makeSpl() {
+        Musics spl = new Musics(Main.MainController.getSongs());
+        add(spl, BorderLayout.CENTER);
+        spl.setVisible(true);
+        Spl = spl;
+    }
+
+    public void makemusic() {
+        LinkedList<Music> musicLinkedList=new LinkedList<Music>();
+        musicLinkedList.add(new Music("./Behnam.mp3"));
+        Musics music = new Musics(musicLinkedList);
+        add(music, BorderLayout.CENTER);
+        music.setVisible(true);
+        Music = music;
+    }
+
+
 
     public MusicBar getMBar() {
         return MBar;
