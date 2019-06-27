@@ -59,12 +59,6 @@ public class Musics extends JPanel implements ActionListener {
         if(e.getSource() == M1.getB()){/////test
             Main.MainController.setNowplaying(Main.MainController.getSongs().get(0));
             Main.mainPlayer.play(Main.MainController.getSongs().get(0).getPath(),0f);
-            JButton play=Main.getF().getMBar().getMb1().getPlay();
-            ImageIcon pus;
-            Main.getF().getMBar().getMb1().setFlagPlay(1);
-            pus = new ImageIcon("./assets/image/pause.png");
-            play.setIcon(pus);
-            play.setRolloverIcon(pus);
         }//test
         if(e.getSource() == M2.getB()){
 

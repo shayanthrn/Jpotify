@@ -10,6 +10,7 @@ import javazoom.jl.player.Player;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Map;
@@ -126,6 +127,12 @@ public class MyPlayer {
             player.close();
         long songlenghtbyte;
         Mp3File mp3File = null;
+        JButton play=Main.getF().getMBar().getMb1().getPlay();
+        ImageIcon pus;
+        Main.getF().getMBar().getMb1().setFlagPlay(1);
+        pus = new ImageIcon("./assets/image/pause.png");
+        play.setIcon(pus);
+        play.setRolloverIcon(pus);
         try {
             mp3File = new Mp3File(Path);
         } catch (IOException e) {
@@ -169,7 +176,7 @@ public class MyPlayer {
             public void run() {
                 try {
                     player.play();
-
+                    
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
