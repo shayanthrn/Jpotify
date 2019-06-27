@@ -1,12 +1,15 @@
 package Logic;
 
+import GUI.Main;
+
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class Controller {
     private LinkedList<Music> songs;
     private LinkedList<Albums> albums;
     private LinkedList<PlayList> playLists;
-    private Music Nowplaying=null;
+    private Music Nowplaying = null;
 
     public Music getNowplaying() {
         return Nowplaying;
@@ -14,7 +17,27 @@ public class Controller {
 
     public void setNowplaying(Music nowplaying) {
         Nowplaying = nowplaying;
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                while (true) {
+                    if(Main.getF().getMBar().getMt1().getFlagchanging()==0) {
+                        System.out.println("doing");
+                        Main.getF().getMBar().getMt1().setTimeslider((int) ((double) Main.mainPlayer.getCurrentTime() / (double) Main.mainPlayer.getTotalTime() * 100));
+                    }
+                    System.out.println("inja");
+                }
+            }
+        }.start();
+
     }
+
 
     public Controller() {
         IOClass ioClass=new IOClass();

@@ -1,5 +1,6 @@
 package GUI;
 
+import Logic.Music;
 import Logic.MyPlayer;
 
 import javax.imageio.ImageIO;
@@ -376,9 +377,22 @@ public class MusicBar extends JPanel {
     }
 
 
-    class MusicBar_MusicTime extends JPanel {
+    public class MusicBar_MusicTime extends JPanel {
         public JSlider getTimeslider() {
             return Timeslider;
+        }
+
+        public void setTimeslider(int value) {
+            Timeslider.setValue(value);
+        }
+        int flagchanging=0;
+
+        public int getFlagchanging() {
+            return flagchanging;
+        }
+
+        public void setFlagchanging(int flagchanging) {
+            this.flagchanging = flagchanging;
         }
 
         JSlider Timeslider;
@@ -404,7 +418,10 @@ public class MusicBar extends JPanel {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     if(Main.MainController.getNowplaying()!=null) {
+                        flagchanging=1;
                         Main.mainPlayer.play(Main.MainController.getNowplaying().getPath(), Timeslider.getValue() / (float) (Timeslider.getMaximum() - Timeslider.getMinimum()));
+                        flagchanging=0;
+                        System.out.println(flagchanging);
                     }
                 }
 
