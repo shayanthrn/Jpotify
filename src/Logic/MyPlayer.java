@@ -109,7 +109,11 @@ public class MyPlayer {
             @Override
             public void run() {
                 try {
-                    player.play();
+                    Main.f.getMBar().getMt1().getTotalTime().setText(Main.mainPlayer.getTotalTime()+"");
+                    while(player.play(1)){
+                        Main.f.getMBar().getMt1().getCurrentTimel().setText(Main.mainPlayer.getCurrentTime()+"");
+                        Main.f.getMBar().getMt1().getTimeslider().setValue((int) ((Main.mainPlayer.getCurrentTime()/(float)Main.mainPlayer.getTotalTime())*100));
+                    }
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
@@ -167,7 +171,7 @@ public class MyPlayer {
         }
         try {
             Main.getF().getMBar().getMp1().setLabel_pic(Utils.resize(ImageIO.read(new ByteArrayInputStream(new Music(Path).getArtWork())),30,30));
-            Main.getF().getMBar().getMp1().setLabel_name(Main.MainController.getNowplaying().getName());
+            Main.getF().getMBar().getMp1().setLabel_name(new Music(Path).getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -175,8 +179,11 @@ public class MyPlayer {
             @Override
             public void run() {
                 try {
-                    player.play();
-                    
+                    Main.f.getMBar().getMt1().getTotalTime().setText(Main.mainPlayer.getTotalTime()+"");
+                    while(player.play(1)){
+                        Main.f.getMBar().getMt1().getCurrentTimel().setText(Main.mainPlayer.getCurrentTime()+"");
+                        Main.f.getMBar().getMt1().getTimeslider().setValue((int) ((Main.mainPlayer.getCurrentTime()/(float)Main.mainPlayer.getTotalTime())*100));
+                    }
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }

@@ -49,17 +49,8 @@ public class Controller {
             albums.add(a);
         }
     }
-    public void NewPlaylist(String Path,String name,boolean isdelete,boolean canchange){
-        PlayList playList=new PlayList(name,isdelete,canchange,Path);
+    public void NewPlaylist(PlayList playList){
         playLists.add(playList);
-    }
-    public void PlaySongs(){
-    }
-    public void PlayAlbum(){
-
-    }
-    public void PlayPlaylist(){
-
     }
     public LinkedList<Music> getSongs(){
         return songs;

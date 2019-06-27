@@ -111,7 +111,6 @@ public class MusicBar extends JPanel {
 
     public class MusicBar_Button extends JPanel implements ActionListener {
 
-        int i = 0;
         JButton play;
         JButton next;
         JButton previous;
@@ -231,7 +230,6 @@ public class MusicBar extends JPanel {
                 } else {
                     like.setIcon(elik);
                     like.setRolloverIcon(relike);
-                    i++;
                 }
             }
         }
@@ -309,9 +307,6 @@ public class MusicBar extends JPanel {
             unmut = Utils.resize("./assets/image/unmute.jpg", 20, 20);
             rmute = Utils.resize("./assets/image/mute.jpg", 25, 25);
             runmut = Utils.resize("./assets/image/unmute.jpg", 25, 25);
-//            queue = new JButton(Utils.resize("./assets/image/queue.jpg", 20, 20));
-//            devices_Available = new JButton(Utils.resize("./assets/image/devices_Available.jpg", 18, 20));
-
             setBackground(new Color(50, 50, 50));
             this.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 10));
             this.setPreferredSize(new Dimension(150, 60));
@@ -346,7 +341,10 @@ public class MusicBar extends JPanel {
             soundslider.addChangeListener(new ChangeListener() {
                 @Override
                 public void stateChanged(ChangeEvent e) {
-
+                    if (unmute.getIcon() == mute) {
+                        unmute.setIcon(unmut);
+                        unmute.setRolloverIcon(runmut);
+                    }
                     float percent=soundslider.getValue()/(float)(soundslider.getMaximum()-soundslider.getMinimum());
                     Main.mainPlayer.changeVoloum(percent);
                 }
@@ -355,20 +353,15 @@ public class MusicBar extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//            if(e.getSource() == queue){
-//
-//            }
-//            if(e.getSource() == devices_Available){
-//
-//            }
             if (e.getSource() == unmute) {
                 if (unmute.getIcon() != mute) {
                     unmute.setIcon(mute);
                     unmute.setRolloverIcon(rmute);
-                    j++;
+                    Main.mainPlayer.changeVoloum(0f);
                 } else {
                     unmute.setIcon(unmut);
                     unmute.setRolloverIcon(runmut);
+                    Main.mainPlayer.changeVoloum(0.5f);
                 }
 
             }
@@ -385,14 +378,36 @@ public class MusicBar extends JPanel {
             Timeslider.setValue(value);
         }
         JSlider Timeslider;
+        JLabel CurrentTimel;
+        JLabel TotalTime;
+
+        public JLabel getCurrentTimel() {
+            return CurrentTimel;
+        }
+
+        public JLabel getTotalTime() {
+            return TotalTime;
+        }
 
         public MusicBar_MusicTime() {
 
             Timeslider = makeUI();
             Timeslider.setMinimumSize(new Dimension(900, 10));
-            this.add(Timeslider);
+            this.setLayout(new BorderLayout());
+            this.add(Timeslider,BorderLayout.CENTER);
             setBackground(new Color(50, 50, 50));
             Timeslider.setValue(0);
+            CurrentTimel=new JLabel("0:00");
+            TotalTime= new JLabel("0:00");
+            this.add(CurrentTimel,BorderLayout.WEST);
+            CurrentTimel.setHorizontalAlignment(SwingConstants.LEFT);
+            CurrentTimel.setForeground(Color.WHITE);
+            TotalTime.setForeground(Color.WHITE);
+            TotalTime.setPreferredSize(new Dimension(30,30));
+            CurrentTimel.setPreferredSize(new Dimension(30,30));
+            TotalTime.setHorizontalAlignment(SwingConstants.RIGHT);
+            this.add(TotalTime,BorderLayout.EAST);
+            this.setBorder(BorderFactory.createEmptyBorder(0,300,0,300));
             Timeslider.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

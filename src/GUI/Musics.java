@@ -2,6 +2,7 @@ package GUI;
 
 import Logic.Albums;
 import Logic.Music;
+import Logic.PlayList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,6 +61,31 @@ public class Musics extends JPanel {
         }
         Main.getF().revalidate();
         Main.getF().repaint();
+    }
+
+    public void ShowPlaylist(String Playlistname) {
+        if(!Playlistname .equals( "null")){
+            this.removeAll();
+            this.setLayout(new BorderLayout());
+            JPanel top=new JPanel();
+            top.setLayout(new GridLayout(1,3));
+            JButton addmusic=new JButton("add");
+            JButton swapmusic=new JButton("swap");
+            JButton removemusic=new JButton("remove");
+            top.add(addmusic);
+            top.add(swapmusic);
+            top.add(removemusic);
+            top.setBackground(new Color(60,60,60));
+            this.add(top,BorderLayout.PAGE_START);
+            JPanel bot=new JPanel();
+            bot.setBackground(new Color(50,50,50));
+            JLabel l=new JLabel(Playlistname);
+            l.setForeground(Color.WHITE);
+            bot.add(l);
+            this.add(bot,BorderLayout.CENTER);
+            Main.getF().revalidate();
+            Main.getF().repaint();
+        }
     }
 }
 

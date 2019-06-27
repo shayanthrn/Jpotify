@@ -65,4 +65,12 @@ public class PlayList implements Serializable {
         Songs.remove(m);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public byte[] getPlayphoto() {
+        return playphoto;
+    }
 }

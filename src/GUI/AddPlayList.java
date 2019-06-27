@@ -1,4 +1,6 @@
 package GUI;
+import Logic.PlayList;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.io.File;
 public class AddPlayList extends JDialog implements ActionListener {
 
     String name_PlayList = "palyList1";
+    String path_playList = "./assets/image/Default.jpg";
     private final int WIDTH = 400, HEIGHT = 200;
     private final int X = 200, Y = 200;
     JTextField namePlayList;
@@ -26,7 +29,7 @@ public class AddPlayList extends JDialog implements ActionListener {
         B = new JButton();
         ok = new JButton();
         cancel = new JButton();
-        img = new ImageIcon("./assets/image/ali.jpg");
+//        img = new ImageIcon("./assets/image/Default.jpg");
 
         this.setLayout(new GridLayout(2, 2,20,30));
         this.setLocation(X, Y);
@@ -78,12 +81,17 @@ public class AddPlayList extends JDialog implements ActionListener {
             int result = playListPicture.showOpenDialog(this);
             if(result == JFileChooser.APPROVE_OPTION){
                 File selectedFile = playListPicture.getSelectedFile();
-                img = new ImageIcon(selectedFile.getAbsolutePath());
+                path_playList = selectedFile.getAbsolutePath();
             }
         }
         if(e.getSource() == ok) {
-            System.out.println(namePlayList.getText());
-            System.out.println(img.getDescription());
+            if (!namePlayList.getText().equals("")) {
+                name_PlayList = namePlayList.getText();
+            }
+            PlayList created_playlist = new PlayList(name_PlayList,true,true,path_playList);
+            Main.MainController.NewPlaylist(created_playlist);
+            JspitiFrame.sp.addPlaylist(created_playlist);
+
             this.dispose();
 
         }

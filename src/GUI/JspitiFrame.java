@@ -18,7 +18,7 @@ public class JspitiFrame extends JFrame {
 
     String user;
     MusicBar MBar = new MusicBar();
-    SidePanel sp = new SidePanel();
+    static SidePanel sp = new SidePanel();
     FriendList fl = new FriendList();
     SearchBar Search = new SearchBar();
     Musics Spl = new Musics();

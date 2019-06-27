@@ -1,12 +1,14 @@
 package GUI;
+
 import Logic.Music;
+import Logic.PlayList;
 
 import javax.swing.*;
-import javax.swing.event.AncestorListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class SidePanel extends JPanel implements ActionListener {
     private JLabel imagePanel;
@@ -17,11 +19,15 @@ public class SidePanel extends JPanel implements ActionListener {
     private JButton addPlayList;
     private JLabel playlist_label;
     private JLabel library_label;
+    DefaultListModel model;
+    JList listofplaylists;
 
     public SidePanel() {
         setPreferredSize(new Dimension(200, 600));
         setLayout(new GridLayout(10, 1));
         setBackground(new Color(50, 50, 50));
+        model = new DefaultListModel();
+        listofplaylists = new JList(model);
         home = new JButton(new ImageIcon("image/Capture_32x32.png"));
         home.setBorder(null);
         home.setForeground(Color.white);
@@ -75,7 +81,13 @@ public class SidePanel extends JPanel implements ActionListener {
         addPlayList.setIconTextGap(5);
         addPlayList.setPreferredSize(new Dimension(200, 50));
         addPlayList.setText("Add PlayList");
-        addPlayList.addActionListener(this);
+        addPlayList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddPlayList addPlayList = new AddPlayList();
+
+            }
+        });
 
         songs = new JButton(new ImageIcon("./completed.png"));
         songs.setBorder(null);
@@ -124,10 +136,19 @@ public class SidePanel extends JPanel implements ActionListener {
         library_label.setForeground(Color.white);
 
 //        list of playlist
-        DefaultListModel model = new DefaultListModel();
-        JList countryList = new JList(model);
-        countryList.setBackground(new Color(50, 50, 50));
-        countryList.setBorder(null);
+
+        listofplaylists.setBackground(new Color(50, 50, 50));
+        listofplaylists.setBorder(null);
+        listofplaylists.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        listofplaylists.setDragEnabled(false);
+        listofplaylists.setCellRenderer(new PlayListRenderer());
+        listofplaylists.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Main.f.getSpl().ShowPlaylist(listofplaylists.getSelectedValue()+"");
+                listofplaylists.clearSelection();
+            }
+        });
 
         add(home);
         add(sep1);
@@ -137,7 +158,7 @@ public class SidePanel extends JPanel implements ActionListener {
         add(albums);
         add(playlist_label);
         add(addPlayList);
-        add(new JScrollPane(countryList));
+        add(new JScrollPane(listofplaylists));
         setVisible(true);
     }
 
@@ -152,5 +173,9 @@ public class SidePanel extends JPanel implements ActionListener {
                 Main.MainController.addToLibrary(music);
             }
         }
+    }
+
+    public void addPlaylist(PlayList playList) {
+        model.addElement(playList);
     }
 }
