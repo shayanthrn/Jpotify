@@ -109,7 +109,7 @@ public class MusicBar extends JPanel {
         return Mb1;
     }
 
-    class MusicBar_Button extends JPanel implements ActionListener {
+    public class MusicBar_Button extends JPanel implements ActionListener {
 
         int i = 0;
         JButton play;
@@ -384,16 +384,6 @@ public class MusicBar extends JPanel {
         public void setTimeslider(int value) {
             Timeslider.setValue(value);
         }
-        int flagchanging=0;
-
-        public int getFlagchanging() {
-            return flagchanging;
-        }
-
-        public void setFlagchanging(int flagchanging) {
-            this.flagchanging = flagchanging;
-        }
-
         JSlider Timeslider;
 
         public MusicBar_MusicTime() {
@@ -417,10 +407,7 @@ public class MusicBar extends JPanel {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     if(Main.MainController.getNowplaying()!=null) {
-                        flagchanging=1;
                         Main.mainPlayer.play(Main.MainController.getNowplaying().getPath(), Timeslider.getValue() / (float) (Timeslider.getMaximum() - Timeslider.getMinimum()));
-                        flagchanging=0;
-                        System.out.println(flagchanging);
                     }
                 }
 
