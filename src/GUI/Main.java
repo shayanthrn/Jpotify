@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.Controller;
+import Logic.Music;
 import Logic.MyPlayer;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class  Main {
     }
 
     public static void main(String[] args) {
-
+        Main.MainController.addToLibrary(new Music("./behnam.mp3"));
         EventQueue.invokeLater(() -> {
             try {
                 for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {

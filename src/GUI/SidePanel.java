@@ -37,9 +37,7 @@ public class SidePanel extends JPanel implements ActionListener {
         home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.f.getSpl().removeAll();
-                Main.f.makemusic();
-                Main.f.getSpl().updateUI();
+                Main.getF().getSpl().ShowHome();
             }
         });
 
@@ -94,9 +92,7 @@ public class SidePanel extends JPanel implements ActionListener {
         songs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.f.getMusic().removeAll();
-                Main.f.makeSpl();
-                Main.f.getMusic().updateUI();
+                Main.f.getSpl().ShowSongs();
             }
         });
 
@@ -112,6 +108,12 @@ public class SidePanel extends JPanel implements ActionListener {
         albums.setIconTextGap(5);
         albums.setPreferredSize(new Dimension(200, 50));
         albums.setText("Albums");
+        albums.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.getF().getSpl().ShowAlbums();
+            }
+        });
 
         playlist_label = new JLabel(" Playlists");
         playlist_label.setFont(new Font("Lato", Font.PLAIN, 15));
@@ -148,14 +150,6 @@ public class SidePanel extends JPanel implements ActionListener {
             if (result == JFileChooser.APPROVE_OPTION) {
                 Music music = new Music(jf.getSelectedFile().getAbsolutePath());
                 Main.MainController.addToLibrary(music);
-
-//                AlbumMusic albumMusic = new AlbumMusic(music);
-//                JspitiFrame.getSpl().add1(albumMusic);
-//                JspitiFrame.getSpl().revalidate();
-//                JspitiFrame.getSpl().update();
-//                JspitiFrame.getMusic().update();
-//                JspitiFrame.getMusic().update();
-//            }
             }
         }
     }

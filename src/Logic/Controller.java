@@ -64,7 +64,7 @@ public class Controller {
     public LinkedList<Music> getSongs(){
         return songs;
     }
-    public void getAlbums(){      // sort bayad she
-
+    public LinkedList<Albums> getAlbums(){
+        return albums;
     }
 }

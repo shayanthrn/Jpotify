@@ -21,14 +21,7 @@ public class JspitiFrame extends JFrame {
     SidePanel sp = new SidePanel();
     FriendList fl = new FriendList();
     SearchBar Search = new SearchBar();
-    static Musics Spl ;
-    static Musics Music;
-    static Musics Album;
-    static ArrayList<AlbumMusic> musics;
-    static ArrayList<AlbumMusic> favorites;
-    static ArrayList<AlbumMusic> Albums;
-
-
+    Musics Spl = new Musics();
 
     public JspitiFrame() {
         super();
@@ -45,47 +38,16 @@ public class JspitiFrame extends JFrame {
         this.add(Search, BorderLayout.PAGE_START);
         this.add(new JScrollPane(fl), BorderLayout.EAST);
         this.add(new JScrollPane(Spl), BorderLayout.CENTER);
-        this.add(new JScrollPane(Music), BorderLayout.CENTER);
-        makemusic();
-
-
-//        Music.update();
-
-//        Music.setVisible(false);
-//        Spl.setVisible(false);
+        Spl.setVisible(true);
         this.setVisible(true);
     }
 
-    public void setUser(String s) {
-//        fl.setUser(s);
-        fl.addUser("Parham " + "\n" + "Tm_Bax " + "\n" + "Sansor ");
-    }
-
-    public static Musics getMusic() {
-        return Music;
-    }
-
-    public static Musics getSpl() {
+    public Musics getSpl() {
         return Spl;
     }
-    public void makeSpl() {
-        Musics spl = new Musics(Main.MainController.getSongs());
-        add(spl, BorderLayout.CENTER);
-        spl.setVisible(true);
-        Spl = spl;
+    public void setUser(String s) {
+        fl.addUser("Parham " + "\n" + "Tm_Bax " + "\n" + "Sansor ");
     }
-
-    public void makemusic() {
-        LinkedList<Music> musicLinkedList=new LinkedList<Music>();
-        musicLinkedList.add(new Music("./Behnam.mp3"));
-        Musics music = new Musics(musicLinkedList);
-        add(music, BorderLayout.CENTER);
-        music.setVisible(true);
-        Music = music;
-    }
-
-
-
     public MusicBar getMBar() {
         return MBar;
     }

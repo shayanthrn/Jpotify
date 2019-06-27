@@ -1,5 +1,6 @@
 package GUI;
 
+import Logic.Albums;
 import Logic.Music;
 
 import javax.imageio.ImageIO;
@@ -11,17 +12,18 @@ import java.io.IOException;
 
 public class AlbumMusic extends JPanel {
 
-    String Music_name;
+    String name;
     JButton b;
     JLabel l;
     Music m;
+    Albums album;
 
     public AlbumMusic(Music m){
 
-        Music_name = m.getName();
+        name = m.getName();
         this.m = m;
-        Music_name = m.getName();
-        setVisible(true);
+        name = m.getName();
+        this.setVisible(true);
         setLayout(new GridLayout(2,1,-30,-40));
         setBackground(new Color(60, 60, 60));
         setPreferredSize(new Dimension(300,300));
@@ -31,7 +33,7 @@ public class AlbumMusic extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        l = new JLabel(Music_name);
+        l = new JLabel(name);
 
         b.setBorder(null);
         b.setContentAreaFilled(false);
@@ -44,14 +46,39 @@ public class AlbumMusic extends JPanel {
         this.add(l);
 
     }
+    public AlbumMusic(Albums albums){
+        name = albums.getName();
+        this.album=albums;
+        name = albums.getName();
+        this.setVisible(true);
+        setLayout(new GridLayout(2,1,-30,-40));
+        setBackground(new Color(60, 60, 60));
+        setPreferredSize(new Dimension(300,300));
+        try {
+            b = new JButton(Utils.resize(ImageIO.read(new ByteArrayInputStream(albums.getSongs().get(0).getArtWork())),200,200));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        l = new JLabel(name);
 
-    public String getMusic_name() {
-        return Music_name;
+        b.setBorder(null);
+        b.setContentAreaFilled(false);
+
+        l.setForeground(Color.WHITE);
+        l.setHorizontalAlignment(SwingConstants.CENTER);
+        l.setFont(new Font("Arial",Font.BOLD,16));
+
+        this.add(b);
+        this.add(l);
     }
 
-    public void setMusic_name(String music_name) {
-        Music_name = music_name;
-        l.setText(music_name);
+    public String name() {
+        return name;
+    }
+
+    public void name(String name) {
+        this.name = name;
+        l.setText(name);
     }
     public JButton getB() {
         return b;
