@@ -181,4 +181,7 @@ public class SidePanel extends JPanel implements ActionListener {
     public void addPlaylist(PlayList playList) {
         model.addElement(playList);
     }
+    public void removePlaylist(PlayList playList){
+        model.removeElement(playList);
+    }
 }

@@ -93,6 +93,7 @@ public class Musics extends JPanel {
             JButton swapmusic=new JButton("swap");
             JButton removemusic=new JButton("remove");
             JButton changename = new JButton("changeName");
+            JButton deletplay = new JButton("Delete PlayList");
             JDialog changenamedia = new JDialog();
             JDialog addmusicdia=new JDialog();
             JDialog swapmusicdia=new JDialog();
@@ -219,6 +220,7 @@ public class Musics extends JPanel {
             top.add(swapmusic);
             top.add(changename);
             top.add(removemusic);
+            top.add(deletplay);
             top.setBackground(new Color(60,60,60));
             this.add(top,BorderLayout.PAGE_START);
             JPanel bot=new JPanel();
@@ -263,6 +265,14 @@ public class Musics extends JPanel {
                     mainplaylist.swap(mainplaylist.getSongs().get((Integer) jpinner1.getValue()),mainplaylist.getSongs().get((Integer) jSpinner2.getValue()));
                     Main.getF().getSpl().ShowPlaylist(mainplaylist.getName());
                     swapmusicdia.dispose();
+                }
+            });
+            deletplay.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Main.MainController.getPlayLists().remove(mainplaylist);
+                    JspitiFrame.sp.removePlaylist(mainplaylist);
+                    Main.f.getSpl().ShowHome();
                 }
             });
             this.add(bot,BorderLayout.CENTER);
