@@ -61,11 +61,15 @@ public class Controller {
     public void addToLibrary(Music m){
         songs.add(m);
         String albumname=m.getAlbum();
+        if(albumname==null){
+            albumname="";
+        }
         int flag=0;
         for(Albums a:albums){
             if(a.getName().equals(albumname)){
                 a.add(m);
                 flag=1;
+                break;
             }
         }
         if(flag==0){

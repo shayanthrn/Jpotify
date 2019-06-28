@@ -30,6 +30,7 @@ public class Musics extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Main.MainController.setNowplaying(albumMusic.getM());
+                    Main.MainController.setMusicque(Main.MainController.getPlayLists().get(1).getSongs().listIterator(Main.MainController.getPlayLists().get(1).getSongs().indexOf(albumMusic.getM())));
                     Main.mainPlayer.play(albumMusic.getM().getPath(),0);
                 }
             });
@@ -241,7 +242,9 @@ public class Musics extends JPanel {
             okchangename.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    mainplaylist.setName(changetext.getText());
+                    if(mainplaylist.isChangename()) {
+                        mainplaylist.setName(changetext.getText());
+                    }
                     Main.getF().getSpl().ShowPlaylist(mainplaylist.getName());
                     changenamedia.dispose();
                 }
@@ -265,6 +268,14 @@ public class Musics extends JPanel {
             this.add(bot,BorderLayout.CENTER);
             for(Music m:mainplaylist.getSongs()){
                 AlbumMusic albumMusic=new AlbumMusic(m,mainplaylist.getSongs().indexOf(m));
+                albumMusic.getB().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Main.MainController.setNowplaying(m);
+                        Main.MainController.setMusicque(mainplaylist.getSongs().listIterator(mainplaylist.getSongs().indexOf(m)));
+                        Main.mainPlayer.play(m.getPath(),0);
+                    }
+                });
                 bot.add(albumMusic);
             }
             Main.getF().revalidate();

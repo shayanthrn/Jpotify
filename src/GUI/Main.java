@@ -1,9 +1,6 @@
 package GUI;
 
-import Logic.Controller;
-import Logic.Music;
-import Logic.MyPlayer;
-import Logic.PlayList;
+import Logic.*;
 
 import javax.swing.*;
 import java.awt.*;
