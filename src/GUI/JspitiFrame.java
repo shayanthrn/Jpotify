@@ -22,7 +22,7 @@ public class JspitiFrame extends JFrame {
     String user;
     MusicBar MBar = new MusicBar();
     static SidePanel sp = new SidePanel();
-    FriendList fl = new FriendList();
+    static FriendList fl = new FriendList();
     SearchBar Search = new SearchBar();
     Musics Spl = new Musics();
 
@@ -87,7 +87,7 @@ public class JspitiFrame extends JFrame {
         return Spl;
     }
     public void setUser(String s) {
-        fl.addUser("Parham " + "\n" + "Tm_Bax " + "\n" + "Sansor ");
+
     }
     public MusicBar getMBar() {
         return MBar;

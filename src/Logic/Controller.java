@@ -2,17 +2,30 @@ package Logic;
 
 import GUI.Main;
 
+import javax.swing.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 public class Controller {
+    private String user = "Paye_Band" ;
     private LinkedList<Music> songs;
     private LinkedList<Albums> albums;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     private LinkedList<PlayList> playLists;
     private Music Nowplaying = null;
     private ListIterator<Music> Musicque=null;
-
+    private HashMap<String,String> IP_Address;
+    private HashMap<String, JTextArea> freiends;
     public void setSongs(LinkedList<Music> songs) {
         this.songs = songs;
     }
@@ -45,8 +58,18 @@ public class Controller {
         return playLists;
     }
 
+    public HashMap<String, String> getIP_Address() {
+        return IP_Address;
+    }
+
+    public HashMap<String, JTextArea> getFreiends() {
+        return freiends;
+    }
+
     public Controller() {
         IOClass ioClass=new IOClass();
+        IP_Address = new HashMap<>();
+        freiends = new HashMap<>();
         if(ioClass.LoadAlbums()!=null) {
             this.songs = ioClass.LoadSongs();
             this.albums = ioClass.LoadAlbums();
