@@ -171,6 +171,7 @@ public class SidePanel extends JPanel implements ActionListener {
             if (result == JFileChooser.APPROVE_OPTION) {
                 Music music = new Music(jf.getSelectedFile().getAbsolutePath());
                 Main.MainController.addToLibrary(music);
+                Main.getF().getSpl().ShowSongs();
             }
         }
     }

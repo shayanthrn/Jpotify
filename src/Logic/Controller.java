@@ -19,6 +19,9 @@ public class Controller {
         Nowplaying = nowplaying;
     }
 
+    public LinkedList<PlayList> getPlayLists() {
+        return playLists;
+    }
 
     public Controller() {
         IOClass ioClass=new IOClass();

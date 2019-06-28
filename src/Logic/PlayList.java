@@ -44,15 +44,15 @@ public class PlayList implements Serializable {
     }
 
     public void add(Music m) {
-        Songs.add(m);
+        Songs.addFirst(m);
     }
 
     public void swap(Music m1, Music m2) {
         int indexm1 = Songs.indexOf(m1);
         int indexm2 = Songs.indexOf(m2);
         Songs.remove(indexm1);
-        Songs.remove(indexm2);
         Songs.add(indexm1, m2);
+        Songs.remove(indexm2);
         Songs.add(indexm2, m1);
     }
 
@@ -72,5 +72,13 @@ public class PlayList implements Serializable {
 
     public byte[] getPlayphoto() {
         return playphoto;
+    }
+
+    public LinkedList<Music> getSongs() {
+        return Songs;
+    }
+
+    public boolean isChangename() {
+        return changename;
     }
 }

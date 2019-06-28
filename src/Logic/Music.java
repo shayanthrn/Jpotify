@@ -58,4 +58,9 @@ public class Music implements Serializable {
         }
         Name=new File(Path).getName();
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

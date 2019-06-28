@@ -18,8 +18,34 @@ public class AlbumMusic extends JPanel {
     Music m;
     Albums album;
 
-    public AlbumMusic(Music m){
+    public AlbumMusic(Music m,int index){
 
+        name = index+":"+m.getName();
+        this.m = m;
+        this.setVisible(true);
+        setLayout(new GridLayout(2,1,-30,-40));
+        setBackground(new Color(60, 60, 60));
+        setPreferredSize(new Dimension(300,300));
+
+        try {
+            b = new JButton(Utils.resize(ImageIO.read(new ByteArrayInputStream(m.getArtWork())),200,200));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        l = new JLabel(name);
+
+        b.setBorder(null);
+        b.setContentAreaFilled(false);
+
+        l.setForeground(Color.WHITE);
+        l.setHorizontalAlignment(SwingConstants.CENTER);
+        l.setFont(new Font("Arial",Font.BOLD,16));
+
+        this.add(b);
+        this.add(l);
+
+    }
+    public AlbumMusic(Music m){
         name = m.getName();
         this.m = m;
         name = m.getName();
@@ -44,7 +70,6 @@ public class AlbumMusic extends JPanel {
 
         this.add(b);
         this.add(l);
-
     }
     public AlbumMusic(Albums albums){
         name = albums.getName();
