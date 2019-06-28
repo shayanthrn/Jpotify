@@ -14,19 +14,17 @@ public class Musics extends JPanel {
 
     public Musics(){
         super();
-        setLayout(new GridLayout(2,3,10,-20));
+        setLayout(new GridLayout(((int) (Main.MainController.getSongs().size() / 2)),2,10,-20));
         setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 20));
         setBackground(new Color(60, 60, 60));
         setVisible(true);
     }
     public void ShowHome(){
        this.removeAll();
-        setLayout(new GridLayout(2,3,10,-20));
         setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 20));
         setBackground(new Color(60, 60, 60));
-       LinkedList<Music> musicLinkedList=new LinkedList<>();
-       musicLinkedList.add(new Music("./behnam.mp3"));
-        for(Music music:musicLinkedList){
+        setLayout(new GridLayout(((int) (Main.MainController.getPlayLists().get(1).getSongs().size() / 2)),2,10,-20)); //todo
+        for(Music music:Main.MainController.getPlayLists().get(1).getSongs()){
             AlbumMusic albumMusic=new AlbumMusic(music);
             albumMusic.getB().addActionListener(new ActionListener() {
                 @Override
@@ -42,7 +40,7 @@ public class Musics extends JPanel {
     }
     public void ShowSongs(){
         this.removeAll();
-        setLayout(new GridLayout(2,3,10,-20));
+        setLayout(new GridLayout(((int) (Main.MainController.getSongs().size() / 2)),2,10,-20));
         setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 20));
         setBackground(new Color(60, 60, 60));
         for(Music music:Main.MainController.getSongs()){
@@ -51,6 +49,7 @@ public class Musics extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Main.MainController.setNowplaying(albumMusic.getM());
+                    Main.MainController.setMusicque(Main.MainController.getSongs().listIterator(Main.MainController.getSongs().indexOf(Main.MainController.getNowplaying())));
                     Main.mainPlayer.play(albumMusic.getM().getPath(),0);
                 }
             });
@@ -61,11 +60,17 @@ public class Musics extends JPanel {
     }
     public void ShowAlbums(){
         this.removeAll();
-        setLayout(new GridLayout(2,3,10,-20));
+        setLayout(new GridLayout(((int) Main.MainController.getAlbums().size()/2),2,10,-20));
         setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 20));
         setBackground(new Color(60, 60, 60));
         for(Albums albums:Main.MainController.getAlbums()){
             AlbumMusic albumMusic=new AlbumMusic(albums);
+            albumMusic.getB().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Main.f.getSpl().ShowAlbum(albums);
+                }
+            });
             this.add(albumMusic);
         }
         Main.getF().revalidate();
@@ -74,6 +79,11 @@ public class Musics extends JPanel {
     PlayList mainplaylist=null;
     public void ShowPlaylist(String Playlistname) {
         if(!Playlistname .equals( "null")){
+            for(PlayList p:Main.MainController.getPlayLists()){
+                if(p.getName().equals(Playlistname)){
+                    mainplaylist=p;
+                }
+            }
             this.removeAll();
             this.setLayout(new BorderLayout());
             JPanel top=new JPanel();
@@ -81,6 +91,8 @@ public class Musics extends JPanel {
             JButton addmusic=new JButton("add");
             JButton swapmusic=new JButton("swap");
             JButton removemusic=new JButton("remove");
+            JButton changename = new JButton("changeName");
+            JDialog changenamedia = new JDialog();
             JDialog addmusicdia=new JDialog();
             JDialog swapmusicdia=new JDialog();
             JDialog removemusicdia=new JDialog();
@@ -107,6 +119,11 @@ public class Musics extends JPanel {
             addmuslist.setBackground(new Color(60,60,60));
             addmuslist.setForeground(Color.WHITE);
             addmusicdia.add(addmuslist,BorderLayout.CENTER);
+            changenamedia.setSize(400,200);
+            changenamedia.setLocation(200,200);
+            changenamedia.setBackground(new Color(60,60,60));
+            changenamedia.setForeground(new Color(62,60,60));
+            changenamedia.setLayout(new BorderLayout());
             JSpinner jpinner1=new JSpinner();
             JSpinner jSpinner=new JSpinner();
             JSpinner jSpinner2=new JSpinner();
@@ -124,15 +141,17 @@ public class Musics extends JPanel {
             JButton selectremove=new JButton("select");
             selectremove.setForeground(Color.WHITE);
             selectremove.setBackground(new Color(70,70,70));
+            JButton okchangename=new JButton("ok");
+            okchangename.setForeground(Color.WHITE);
+            okchangename.setBackground(new Color(70,71,70));
             JButton cansel=new JButton("cansel");
             JButton cansel1=new JButton("cansel");
             JButton cansel2=new JButton("cansel");
+            JButton cansel3=new JButton("cansel");
             cansel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     addmusicdia.dispose();
-                    swapmusicdia.dispose();
-                    removemusicdia.dispose();
                 }
             });
             cansel1.addActionListener(new ActionListener() {
@@ -147,16 +166,28 @@ public class Musics extends JPanel {
                     removemusicdia.dispose();
                 }
             });
+            cansel3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    changenamedia.dispose();
+                }
+            });
+            JTextField changetext = new JTextField();
+            changenamedia.add(changetext,BorderLayout.CENTER);
             removemusicdia.add(cansel2,BorderLayout.WEST);
             swapmusicdia.add(cansel1,BorderLayout.WEST);
             swapmusicdia.add(selectswap,BorderLayout.EAST);
             removemusicdia.add(selectremove,BorderLayout.EAST);
+            changenamedia.add(okchangename,BorderLayout.EAST);
+            changenamedia.add(cansel3,BorderLayout.WEST);
             cansel.setForeground(Color.WHITE);
             cansel.setBackground(new Color(70,70,70));
             cansel1.setForeground(Color.WHITE);
             cansel1.setBackground(new Color(70,71,70));
             cansel2.setForeground(Color.WHITE);
             cansel2.setBackground(new Color(71,70,70));
+            cansel3.setBackground(new Color(69,70,70));
+            cansel3.setForeground(Color.WHITE);
             addmusicdia.add(selectadd,BorderLayout.EAST);
             addmusicdia.add(cansel,BorderLayout.WEST);
             addmusic.addActionListener(new ActionListener() {
@@ -177,15 +208,23 @@ public class Musics extends JPanel {
                     removemusicdia.setVisible(true);
                 }
             });
+            changename.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    changenamedia.setVisible(true);
+                }
+            });
             top.add(addmusic);
             top.add(swapmusic);
+            top.add(changename);
             top.add(removemusic);
             top.setBackground(new Color(60,60,60));
             this.add(top,BorderLayout.PAGE_START);
             JPanel bot=new JPanel();
             addmuslist.setSelectionMode(0);
             bot.setBackground(new Color(50,50,50));
-            bot.setLayout(new GridLayout(2,3,10,-20));
+                bot.setLayout(new GridLayout(((int) (mainplaylist.getSongs().size() / 2)),2,10,-20));
+                bot.setLayout(new GridLayout(2,2,10,-20));
             for(PlayList playList:Main.MainController.getPlayLists()){
                 if(playList.getName().equals(Playlistname)){
                     mainplaylist=playList;
@@ -197,6 +236,14 @@ public class Musics extends JPanel {
                     mainplaylist.add(addmuslist.getSelectedValue());
                     Main.getF().getSpl().ShowPlaylist(mainplaylist.getName());
                     addmusicdia.dispose();
+                }
+            });
+            okchangename.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    mainplaylist.setName(changetext.getText());
+                    Main.getF().getSpl().ShowPlaylist(mainplaylist.getName());
+                    changenamedia.dispose();
                 }
             });
             selectremove.addActionListener(new ActionListener() {
@@ -223,6 +270,26 @@ public class Musics extends JPanel {
             Main.getF().revalidate();
             Main.getF().repaint();
         }
+    }
+    public void ShowAlbum(Albums albums){
+        this.removeAll();
+        setLayout(new GridLayout(((int) (albums.getSongs().size() / 2)),2,10,-20));
+        setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 20));
+        setBackground(new Color(61, 60, 60));
+        for(Music music:albums.getSongs()){
+            AlbumMusic albumMusic=new AlbumMusic(music);
+            albumMusic.getB().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Main.MainController.setNowplaying(albumMusic.getM());
+                    Main.MainController.setMusicque(albums.getSongs().listIterator(albums.getSongs().indexOf(albumMusic.getM())));
+                    Main.mainPlayer.play(albumMusic.getM().getPath(),0);
+                }
+            });
+            this.add(albumMusic);
+        }
+        Main.getF().revalidate();
+        Main.getF().repaint();
     }
 }
 

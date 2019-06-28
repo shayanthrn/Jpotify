@@ -1,10 +1,13 @@
 package GUI;
 
+import Logic.IOClass;
 import Logic.Music;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class JspitiFrame extends JFrame {
 
     public JspitiFrame() {
         super();
-        user = "Parham\n Tm_Bax \n Sansor";
+        user = "Parham\nSansor\n";
 
         this.setLocation(X, Y);
         this.setSize(WIDTH, HEIGHT);
@@ -40,6 +43,44 @@ public class JspitiFrame extends JFrame {
         this.add(new JScrollPane(Spl), BorderLayout.CENTER);
         Spl.setVisible(true);
         this.setVisible(true);
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                IOClass.saveAlbums(Main.MainController.getAlbums());
+                IOClass.savePlaylists(Main.MainController.getPlayLists());
+                IOClass.saveSongs(Main.MainController.getSongs());
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     public Musics getSpl() {

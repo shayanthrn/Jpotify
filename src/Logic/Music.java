@@ -2,9 +2,8 @@ package Logic;
 
 import com.mpatric.mp3agic.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class Music implements Serializable {
     private String Album;
@@ -54,7 +53,18 @@ public class Music implements Serializable {
         }
         if (mp3file.hasId3v2Tag()) {
             ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-            ArtWork = id3v2Tag.getAlbumImage();
+            if(id3v2Tag.getAlbumImage()!=null)
+                ArtWork = id3v2Tag.getAlbumImage();
+            else{
+                ByteArrayOutputStream bos =new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(ImageIO.read(new File("C:\\Users\\Sadegh\\Desktop\\J\\Jpotify\\assets\\image\\Default.Jpg")),"jpg",bos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ;
+                ArtWork= bos.toByteArray();
+            }
         }
         Name=new File(Path).getName();
     }

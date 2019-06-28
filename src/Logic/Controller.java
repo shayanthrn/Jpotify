@@ -63,7 +63,7 @@ public class Controller {
         String albumname=m.getAlbum();
         int flag=0;
         for(Albums a:albums){
-            if(a.getName()==albumname){
+            if(a.getName().equals(albumname)){
                 a.add(m);
                 flag=1;
             }

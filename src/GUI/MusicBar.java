@@ -221,14 +221,36 @@ public class MusicBar extends JPanel {
             next.setContentAreaFilled(false);
             next.setPressedIcon(Utils.resize("./assets/image/next.png", 20, 20));
             next.setRolloverIcon(Utils.resize("./assets/image/next.png", 25, 25));
-            next.addActionListener(this);
+            next.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(Main.MainController.getMusicque()!=null){
+                        if(Main.MainController.getMusicque().hasNext()) {
+                            Music m = Main.MainController.getMusicque().next();
+                            Main.MainController.setNowplaying(m);
+                            Main.mainPlayer.play(m.getPath(), 0);
+                        }
+                    }
+                }
+            });
 
 
             previous.setBorder(null);
             previous.setContentAreaFilled(false);
             previous.setPressedIcon(Utils.resize("./assets/image/previous.png", 20, 20));
             previous.setRolloverIcon(Utils.resize("./assets/image/previous.png", 25, 25));
-            previous.addActionListener(this);
+            previous.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(Main.MainController.getMusicque()!=null){
+                        if(Main.MainController.getMusicque().hasPrevious()) {
+                            Music m = Main.MainController.getMusicque().previous();
+                            Main.MainController.setNowplaying(m);
+                            Main.mainPlayer.play(m.getPath(), 0);
+                        }
+                    }
+                }
+            });
 
             shuffle.setBorder(null);
             shuffle.setContentAreaFilled(false);

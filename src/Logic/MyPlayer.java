@@ -189,7 +189,7 @@ public class MyPlayer {
                         Main.f.getMBar().getMt1().getTimeslider().setValue((int) ((Main.mainPlayer.getCurrentTime()/(float)Main.mainPlayer.getTotalTime())*100));
                         if(Integer.parseInt(Main.f.getMBar().getMt1().getCurrentTimel().getText())==(Integer.parseInt(Main.getF().getMBar().getMt1().getTotalTime().getText())-2)){
                             Main.f.getMBar().getMb1().getPlay().doClick();
-                            //go next song
+                            Main.f.getMBar().getMb1().getNext().doClick();
                         }
                     }
                 } catch (JavaLayerException e) {

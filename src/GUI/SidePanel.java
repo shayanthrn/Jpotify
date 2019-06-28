@@ -149,7 +149,9 @@ public class SidePanel extends JPanel implements ActionListener {
                 listofplaylists.clearSelection();
             }
         });
-
+        for(PlayList p:Main.MainController.getPlayLists()){
+            model.addElement(p);
+        }
         add(home);
         add(sep1);
         add(library_label);

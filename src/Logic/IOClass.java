@@ -5,8 +5,8 @@ import javazoom.jl.player.Player;
 import java.io.*;
 import java.util.LinkedList;
 
-public class IOClass {
-        public void saveSongs(LinkedList<Music> songs){
+public  class IOClass {
+        public static void saveSongs(LinkedList<Music> songs){
             ObjectOutputStream outputStream= null;
             try {
                 outputStream = new ObjectOutputStream(new FileOutputStream("./saved/Songs.bin"));
@@ -26,7 +26,7 @@ public class IOClass {
                 e.printStackTrace();
             }
         }
-        public void savePlaylists(LinkedList<PlayList> playLists){
+        public static void savePlaylists(LinkedList<PlayList> playLists){
             ObjectOutputStream outputStream=null;
             try {
                 outputStream=new ObjectOutputStream(new FileOutputStream("./saved/Playlists.bin"));
@@ -46,7 +46,7 @@ public class IOClass {
                 e.printStackTrace();
             }
         }
-        public void saveAlbums(LinkedList<Albums> albums){
+        public static void saveAlbums(LinkedList<Albums> albums){
             ObjectOutputStream outputStream=null;
             try {
                 outputStream=new ObjectOutputStream(new FileOutputStream("./saved/Albums.bin"));
