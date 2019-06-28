@@ -113,6 +113,10 @@ public class MyPlayer {
                     while(player.play(1)){
                         Main.f.getMBar().getMt1().getCurrentTimel().setText(Main.mainPlayer.getCurrentTime()+"");
                         Main.f.getMBar().getMt1().getTimeslider().setValue((int) ((Main.mainPlayer.getCurrentTime()/(float)Main.mainPlayer.getTotalTime())*100));
+                        if(Integer.parseInt(Main.f.getMBar().getMt1().getCurrentTimel().getText())==(Integer.parseInt(Main.getF().getMBar().getMt1().getTotalTime().getText())-2)){
+                            Main.f.getMBar().getMb1().getPlay().doClick();
+                            //go next song
+                        }
                     }
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
@@ -184,7 +188,7 @@ public class MyPlayer {
                         Main.f.getMBar().getMt1().getCurrentTimel().setText(Main.mainPlayer.getCurrentTime()+"");
                         Main.f.getMBar().getMt1().getTimeslider().setValue((int) ((Main.mainPlayer.getCurrentTime()/(float)Main.mainPlayer.getTotalTime())*100));
                         if(Integer.parseInt(Main.f.getMBar().getMt1().getCurrentTimel().getText())==(Integer.parseInt(Main.getF().getMBar().getMt1().getTotalTime().getText())-2)){
-                            Main.mainPlayer.pause();
+                            Main.f.getMBar().getMb1().getPlay().doClick();
                             //go next song
                         }
                     }

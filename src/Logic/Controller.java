@@ -3,6 +3,7 @@ package Logic;
 import GUI.Main;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 public class Controller {
@@ -10,6 +11,27 @@ public class Controller {
     private LinkedList<Albums> albums;
     private LinkedList<PlayList> playLists;
     private Music Nowplaying = null;
+    private ListIterator<Music> Musicque=null;
+
+    public void setSongs(LinkedList<Music> songs) {
+        this.songs = songs;
+    }
+
+    public void setAlbums(LinkedList<Albums> albums) {
+        this.albums = albums;
+    }
+
+    public void setPlayLists(LinkedList<PlayList> playLists) {
+        this.playLists = playLists;
+    }
+
+    public ListIterator<Music> getMusicque() {
+        return Musicque;
+    }
+
+    public void setMusicque(ListIterator<Music> musicque) {
+        Musicque = musicque;
+    }
 
     public Music getNowplaying() {
         return Nowplaying;

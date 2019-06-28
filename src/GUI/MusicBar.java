@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ListIterator;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.TimeUnit;
 
 
@@ -138,6 +140,54 @@ public class MusicBar extends JPanel {
         ImageIcon flike;
         Icon rflike;
         Icon relike;
+
+        public JButton getNext() {
+            return next;
+        }
+
+        public JButton getPrevious() {
+            return previous;
+        }
+
+        public JButton getShuffle() {
+            return shuffle;
+        }
+
+        public JButton getRepeat() {
+            return repeat;
+        }
+
+        public JButton getLike() {
+            return like;
+        }
+
+        public ImageIcon getPla() {
+            return pla;
+        }
+
+        public ImageIcon getPla1() {
+            return pla1;
+        }
+
+        public ImageIcon getPus() {
+            return pus;
+        }
+
+        public ImageIcon getElik() {
+            return elik;
+        }
+
+        public ImageIcon getFlike() {
+            return flike;
+        }
+
+        public Icon getRflike() {
+            return rflike;
+        }
+
+        public Icon getRelike() {
+            return relike;
+        }
 
         public MusicBar_Button() {
 
